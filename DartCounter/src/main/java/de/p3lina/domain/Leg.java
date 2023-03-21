@@ -1,8 +1,12 @@
 package de.p3lina.domain;
 
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+
 import java.util.List;
 import java.util.Map;
-
+@RequiredArgsConstructor
 public class Leg {
 
     private List<Player> players;
@@ -10,6 +14,8 @@ public class Leg {
     private Player winner;
     private Player beginner;
     //Score hier oder auf dem Player?
+    @NonNull
+    @Getter
     private Map<Player, Integer> playerScore;
     private Map<Player, List<Throw>> playerThrows;
     private Map<Player, Double> playerAverageThrow;

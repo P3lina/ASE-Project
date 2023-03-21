@@ -9,11 +9,11 @@ public class HandleLegs {
 
 
 
-    public static void startLegs(List<Leg> legs, List<Player> players, int startScore) {
-        initializePlayerScores(legs, players, startScore);
+    public void initializeLegs(List<Leg> legs, List<Player> players, int startScore) {
+        initializePlayerScoresForLegs(legs, players, startScore);
     }
 
-    private static void initializePlayerScores(List<Leg> legs, List<Player> players, int startScore) {
+    private void initializePlayerScoresForLegs(List<Leg> legs, List<Player> players, int startScore) {
         for(Leg leg : legs) {
             for(Player player : players){
                 leg.addPlayerWithScore(player, startScore);

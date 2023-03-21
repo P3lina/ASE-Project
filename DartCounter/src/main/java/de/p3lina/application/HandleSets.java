@@ -4,28 +4,37 @@ import de.p3lina.domain.Leg;
 import de.p3lina.domain.Player;
 import de.p3lina.domain.Set;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class HandleSets {
 
-    public static void startSets(List<Set> sets, int legCount, List<Player> players, int startScore){
-        sets = initializeLegs(sets, legCount);
-        startLegs(sets, players, startScore);
+    public void initializeSets(List<Set> sets, int legCount, List<Player> players, int startScore){
+        sets = initializeLegsOfSets(sets, legCount);
+        initializeLegs(sets, players, startScore);
     }
 
-    private static List<Set> initializeLegs(List<Set> sets, int legCount){
+    private List<Set> initializeLegsOfSets(List<Set> sets, int legCount){
+        List<Set> returnSet = new ArrayList<Set>(sets);
         for(Set set : sets) {
-            for (int indexOfLeg = 0; indexOfLeg < legCount; indexOfLeg++) {
-                Leg leg = new Leg();
-                set.addLeg(leg);
-            }
+            returnSet.add(initializeLegsOfSet(set, legCount));
         }
-        return sets;
+        return returnSet;
     }
 
-    private static void startLegs(List<Set> sets, List<Player> players, int startScore) {
+    private Set initializeLegsOfSet(Set set, int legCount) {
+        set.setLegs(new ArrayList<Leg>());
+        for (int indexOfLeg = 0; indexOfLeg < legCount; indexOfLeg++) {
+            Leg leg = new Leg(new HashMap<Player, Integer>());
+            set.addLeg(leg);
+        }
+        return set;
+    }
+
+    private void initializeLegs(List<Set> sets, List<Player> players, int startScore) {
         for(Set set : sets) {
-            HandleLegs.startLegs(set.getLegs(), players, startScore);
+            new HandleLegs().initializeLegs(set.getLegs(), players, startScore);
         }
     }
 
