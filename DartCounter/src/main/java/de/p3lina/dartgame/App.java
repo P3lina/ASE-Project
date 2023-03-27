@@ -1,25 +1,24 @@
 package de.p3lina.dartgame;
 
-import de.p3lina.domain.Dart;
-import de.p3lina.domain.PossibleDarts;
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.p3lina.application.HandleMatch;
+import de.p3lina.adapters.SetupMatchQuestions;
+import de.p3lina.application.setup.SetupMatch;
+import de.p3lina.domain.Match;
 import de.p3lina.domain.Player;
 
 public class App 
 {
-    public static void main( String[] args ) throws IOException {
+    public static void main( String[] args ) throws IOException, InterruptedException {
         //Dart dart = new Dart(PossibleDarts.valueOf("Thrown dart, e.g. T20"));
         List<Player> players = new ArrayList<Player>();
+        Player p = null;
         for(int i=0;i<3;i++){
-            players.add(new Player("Spieler " + i));
+            p = new Player("Spieler " + i);
+            players.add(p);
         }
-        new HandleMatch().initializeMatch(2,3, players, 301);
+        Match match = new SetupMatch().initializeAndReturnMatch(new SetupMatchQuestions().getMatchInfos());
     }
 }

@@ -19,4 +19,6 @@ public class Match {
     private List<Player> players;
     @NonNull
     private int startScore;
+    @Getter
+    private Player winner;
 }
