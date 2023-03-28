@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ResourceBundleManager">
-    <file url="file://$PROJECT_DIR$/resources/src/main/resource_bundle.properties" />
-    <file url="file://$PROJECT_DIR$/resources/src/main/resource_bundle_de_DE.properties" />
-    <file url="file://$PROJECT_DIR$/resources/src/main/resource_bundle_en_DE.properties" />
+    <file url="file://$PROJECT_DIR$/resources/src/main/resources/de/p3lina/messages/resource_bundle_de_DE.properties" />
+    <file url="file://$PROJECT_DIR$/resources/src/main/resources/de/p3lina/messages/resource_bundle_en_DE.properties" />
     <custom-resource-bundle>
-      <file value="file://$PROJECT_DIR$/resources/src/main/resource_bundle.properties" />
-      <file value="file://$PROJECT_DIR$/resources/src/main/resource_bundle_FR.properties" />
-      <file value="file://$PROJECT_DIR$/resources/src/main/resource_bundle_de_DE.properties" />
-      <file value="file://$PROJECT_DIR$/resources/src/main/resource_bundle_en_DE.properties" />
+      <file value="file://$PROJECT_DIR$/resources/src/main/resources/de/p3lina/messages/resource_bundle_FR.properties" />
+      <file value="file://$PROJECT_DIR$/resources/src/main/resources/de/p3lina/messages/resource_bundle_de_DE.properties" />
+      <file value="file://$PROJECT_DIR$/resources/src/main/resources/de/p3lina/messages/resource_bundle_en_DE.properties" />
       <base-name>resource_bundle</base-name>
     </custom-resource-bundle>
   </component>

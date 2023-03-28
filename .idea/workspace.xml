@@ -4,72 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7c245877-ead0-4977-a3be-caa3b6b99673" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/resourceBundles.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/dart-counter.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/src/main/java/de/p3lina/adapters/MatchMessages.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/src/main/java/de/p3lina/adapters/SetupMatchQuestions.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/src/main/java/de/p3lina/application/UserCommunicationService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/src/main/java/de/p3lina/application/UserInput.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/src/main/java/de/p3lina/application/handle/HandleMatch.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/src/main/java/de/p3lina/application/i18n/I18n.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/src/main/java/de/p3lina/application/setup/SetupLegs.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/src/main/java/de/p3lina/application/setup/SetupMatch.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/src/main/java/de/p3lina/application/setup/SetupSets.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/src/main/java/de/p3lina/dartgame/App.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/src/main/java/de/p3lina/domain/Dart.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/src/main/java/de/p3lina/domain/Leg.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/src/main/java/de/p3lina/domain/Match.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/src/main/java/de/p3lina/domain/MatchInfos.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/src/main/java/de/p3lina/domain/Menu.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/src/main/java/de/p3lina/domain/MessagesDuringMatch.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/src/main/java/de/p3lina/domain/Player.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/src/main/java/de/p3lina/domain/PossibleDarts.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/src/main/java/de/p3lina/domain/Set.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/src/main/java/de/p3lina/domain/Throw.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/src/main/java/de/p3lina/domain/i18n/Messages.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/src/main/resources/messages/resource_bundle.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/src/main/resources/messages/resource_bundle_FR.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/src/main/resources/messages/resource_bundle_de_DE.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/src/test/java/de/p3lina/dartgame/AppTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/target/classes/de/p3lina/adapters/SetupMatchQuestions.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/target/classes/de/p3lina/application/SetupLegs.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/target/classes/de/p3lina/application/SetupMatch.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/target/classes/de/p3lina/application/SetupSets.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/target/classes/de/p3lina/application/UserInput.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/target/classes/de/p3lina/application/i18n/I18n.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/target/classes/de/p3lina/dartgame/App.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/target/classes/de/p3lina/domain/Dart.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/target/classes/de/p3lina/domain/Leg.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/target/classes/de/p3lina/domain/Match.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/target/classes/de/p3lina/domain/MatchInfos.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/target/classes/de/p3lina/domain/Menu.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/target/classes/de/p3lina/domain/Player.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/target/classes/de/p3lina/domain/PossibleDarts.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/target/classes/de/p3lina/domain/Set.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/target/classes/de/p3lina/domain/Throw.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/target/classes/de/p3lina/domain/i18n/Messages.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/target/classes/messages/resource_bundle.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/target/classes/messages/resource_bundle_FR.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/target/classes/messages/resource_bundle_de_DE.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/target/dart-counter-1.0.0-SNAPSHOT.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/target/surefire-reports/TEST-de.p3lina.dartgame.AppTest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/target/surefire-reports/de.p3lina.dartgame.AppTest.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DartCounter/target/test-classes/de/p3lina/dartgame/AppTest.class" beforeDir="false" />
-    </list>
+    <list default="true" id="7c245877-ead0-4977-a3be-caa3b6b99673" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -102,25 +37,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/I538911/Documents/GitHub/ASE/ASE-Project/ASE-Project&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.32346243&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pathVariables&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/Robin/OneDrive/GitHub/ASE/main/ASE-Project/DartCounterV2",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.32346243",
+    "settings.editor.selected.configurable": "preferences.pathVariables",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/DartCounter/src/main/resources" />
@@ -173,6 +108,7 @@
       <updated>1679416594449</updated>
       <workItem from="1679416595532" duration="26469000" />
       <workItem from="1679948790705" duration="107000" />
+      <workItem from="1680005348006" duration="14000" />
     </task>
     <servers />
   </component>
