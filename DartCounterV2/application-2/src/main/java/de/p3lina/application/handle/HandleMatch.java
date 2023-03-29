@@ -3,7 +3,6 @@ package de.p3lina.application.handle;
 import de.p3lina.application.UserCommunicationService;
 import de.p3lina.domain.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class HandleMatch {
@@ -64,7 +63,7 @@ public class HandleMatch {
         try {
             PossibleDarts parsedInput = PossibleDarts.valueOf(userInput);
             Dart dart = new Dart(parsedInput);
-            if(playerOverthrown(player, dart)) {
+            if(playerBusted(player, dart)) {
                 this.currentLeg.setPlayerScore(player, playerScoreBeforeThrow);
                 return;
             }
@@ -76,7 +75,7 @@ public class HandleMatch {
         }
     }
 
-    private boolean playerOverthrown(Player player, Dart dart) {
+    private boolean playerBusted(Player player, Dart dart) {
         if(dart.getPoints()>this.currentLeg.getPlayerScore().get(player)) {
             return true;
         }

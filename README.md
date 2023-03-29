@@ -28,3 +28,4 @@ There isn't a lot of domain knowledge about darts, but when someone never played
 - **Throw**: A throw is a single throw of a player in a leg. A throw can have multiple darts (might depends on game mode)
 - **Player/Leg Statistics**: The Statistics are the statistics of a player in a leg or overall (e.g. checkout-quote: 20%, average throw: 180)
 - **Game History**: It consist of every action taken by every player
+- **Busted**: Occurs, when a player fails to get the score below zero or if he didn't get to zero with a double number (e.g. double 20 or double 16)
