@@ -3,6 +3,7 @@ package de.p3lina.domain;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ public class Leg {
     private List<Player> players;
     private int indexOfPlayerWhoseTurnItIs;
     @Getter
+    @Setter
     private Player winner;
     private Player beginner;
     //Score hier oder auf dem Player?

@@ -25,38 +25,50 @@ public class HandleMatch {
 
     private void proceedMatch(Match match, Set currentSet, Leg currentLeg, List<Player> players) {
         while(match.getWinner() == null) {
-            proceedSet(currentSet, currentLeg, players);
+            proceedSet(currentSet, players);
         }
     }
 
-    private void proceedSet(Set currentSet, Leg currentLeg, List<Player> players) {
+    private void proceedSet(Set currentSet, List<Player> players) {
         message.printCurrentSetNumber();
         while (currentSet.getWinner() == null) {
-            processLeg(currentLeg, players);
+            processLeg(players);
         }
     }
 
-    private void processLeg(Leg currentLeg, List<Player> players) {
+    private void processLeg(List<Player> players) {
         message.printCurrentLegNumber();
-        while (currentLeg.getWinner() == null) {
+        while (this.currentLeg.getWinner() == null) {
             processRound(players);
         }
+        System.out.println("Player " + currentLeg.getWinner().getName() + " won!");
+        this.currentLeg = currentSet.getLegs().get(currentLeg.getLegNumber());
     }
 
     private void processRound(List<Player> players) {
         for(Player player : players) {
-            processThrow(player);
+            ThrowStatus throwStatus = processThrow(player);
+            if(throwStatus == ThrowStatus.CHECKOUT) {
+                break;
+            }
         }
     }
 
-    private void processThrow(Player player) {
+    private ThrowStatus processThrow(Player player) {
         int playerScoreBeforeThrow = currentLeg.getPlayerScore().get(player);
         for(int i = 0; i<3; i++) {
-            processDart(player, playerScoreBeforeThrow);
+            DartStatus dartStatus = processDart(player, playerScoreBeforeThrow);
+            if(dartStatus==DartStatus.BUSTED) {
+                return ThrowStatus.NOTHING;
+            }
+            if(dartStatus==DartStatus.CHECKOUT) {
+                return ThrowStatus.CHECKOUT;
+            }
         }
+        return ThrowStatus.NOTHING;
     }
 
-    private void processDart(Player player, int playerScoreBeforeThrow) {
+    private DartStatus processDart(Player player, int playerScoreBeforeThrow) {
         message.printPlayerInputDart(player.getName());
         String userInput = new UserCommunicationService().getUserInput().toString();
         userInput = prepareUserInput(userInput);
@@ -65,7 +77,11 @@ public class HandleMatch {
             Dart dart = new Dart(parsedInput);
             if(playerBusted(player, dart)) {
                 this.currentLeg.setPlayerScore(player, playerScoreBeforeThrow);
-                return;
+                return DartStatus.BUSTED;
+            }
+            if(playerCheckedOut(player, dart)) {
+                currentLeg.setWinner(player);
+                return DartStatus.CHECKOUT;
             }
             System.out.println("You threw: " + dart.getPoints());
             this.currentLeg.subtractPlayerScore(player, dart.getPoints());
@@ -73,10 +89,18 @@ public class HandleMatch {
         }catch(IllegalArgumentException exc) {
             processDart(player, playerScoreBeforeThrow);
         }
+        return DartStatus.NOTHING;
     }
 
     private boolean playerBusted(Player player, Dart dart) {
         if(dart.getPoints()>this.currentLeg.getPlayerScore().get(player)) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean playerCheckedOut(Player player, Dart dart) {
+        if(dart.getPoints()==this.currentLeg.getPlayerScore().get(player)&&dart.isDoubleNumber()) {
             return true;
         }
         return false;
