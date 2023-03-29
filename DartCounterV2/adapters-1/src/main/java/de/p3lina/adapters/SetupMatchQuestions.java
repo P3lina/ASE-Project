@@ -49,7 +49,7 @@ public class SetupMatchQuestions {
             char charAtIndex = message.charAt(indexInMessage);
             System.out.print(charAtIndex);
             try{
-                TimeUnit.MILLISECONDS.sleep(40);
+                TimeUnit.MILLISECONDS.sleep(1);
             }catch(InterruptedException exc) {
 
             }

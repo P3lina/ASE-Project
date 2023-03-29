@@ -29,5 +29,11 @@ public class Leg {
     public void addPlayerWithScore(Player player, int score) {
         playerScore.put(player, score);
     }
+    public void subtractPlayerScore(Player player, int subtractValue) {
+        this.playerScore.put(player, this.playerScore.get(player) - subtractValue);
+    }
+    public void setPlayerScore(Player player, int score) {
+        this.playerScore.put(player, score);
+    }
 
 }
