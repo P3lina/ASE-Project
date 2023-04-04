@@ -8,8 +8,11 @@ import de.p3lina.domain.MatchInfos;
 import de.p3lina.domain.Player;
 import de.p3lina.domain.i18n.Messages;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
 
 public class SetupMatchQuestions {
