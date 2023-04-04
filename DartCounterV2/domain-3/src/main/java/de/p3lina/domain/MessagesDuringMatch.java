@@ -11,4 +11,6 @@ public interface MessagesDuringMatch {
     void printWhoseTurnItIs(String playerName);
 
     void printPlayerInputDart(String playerName);
+
+    void printThrow(String name, int points);
 }

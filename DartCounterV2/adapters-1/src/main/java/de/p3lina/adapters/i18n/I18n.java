@@ -20,7 +20,7 @@ public class I18n {
         return rb.getString(messageCode.toString());
     }
 
-    public static String getMessage(Messages messageCode, String ...parameters) {
+    public static <T> String getMessage(Messages messageCode, T ...parameters) {
         ResourceBundle rb = ResourceBundle.getBundle(BUNDLE_NAME, Locale.ENGLISH);
         String messageWithPlaceholders = rb.getString(messageCode.toString());
         String message = MessageFormat.format(messageWithPlaceholders, parameters);

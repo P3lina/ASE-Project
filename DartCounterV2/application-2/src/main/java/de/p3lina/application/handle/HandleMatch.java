@@ -83,7 +83,8 @@ public class HandleMatch {
                 currentLeg.setWinner(player);
                 return DartStatus.CHECKOUT;
             }
-            System.out.println("You threw: " + dart.getPoints());
+            //System.out.println("You threw: " + dart.getPoints());
+            message.printThrow(player.getName(), dart.getPoints());
             this.currentLeg.subtractPlayerScore(player, dart.getPoints());
             System.out.println("remaining: " + this.currentLeg.getPlayerScore().get(player));
         }catch(IllegalArgumentException exc) {

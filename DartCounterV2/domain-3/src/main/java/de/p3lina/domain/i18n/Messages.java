@@ -6,5 +6,6 @@ public enum Messages {
     START_SCORE,
     HOW_MANY_SETS,
     HOW_MANY_LEGS,
-    ENTER_PLAYER_NAME
+    ENTER_PLAYER_NAME,
+    PLAYER_THROW
 }
