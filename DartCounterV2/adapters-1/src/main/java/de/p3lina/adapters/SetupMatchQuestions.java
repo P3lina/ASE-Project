@@ -3,7 +3,7 @@ package de.p3lina.adapters;
 
 
 import de.p3lina.application.UserCommunicationService;
-import de.p3lina.application.i18n.I18n;
+import de.p3lina.adapters.i18n.I18n;
 import de.p3lina.domain.MatchInfos;
 import de.p3lina.domain.Player;
 import de.p3lina.domain.i18n.Messages;

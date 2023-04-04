@@ -1,4 +1,4 @@
-package de.p3lina.application.i18n;
+package de.p3lina.adapters.i18n;
 
 import de.p3lina.domain.i18n.Messages;
 
