@@ -7,5 +7,7 @@ public enum Messages {
     HOW_MANY_SETS,
     HOW_MANY_LEGS,
     ENTER_PLAYER_NAME,
-    PLAYER_THROW
+    PLAYER_THROW,
+    PLAYER_BUSTED,
+    PLAYER_CHECKED_OUT
 }

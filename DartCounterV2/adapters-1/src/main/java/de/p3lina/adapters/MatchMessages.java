@@ -42,5 +42,15 @@ public class MatchMessages implements MessagesDuringMatch {
         System.out.println(I18n.getMessage(Messages.PLAYER_THROW, name, points));
     }
 
+    @Override
+    public void printPlayerBusted(String name, int resetPointsTo) {
+        System.out.println(I18n.getMessage(Messages.PLAYER_BUSTED, name, resetPointsTo));
+    }
+
+    @Override
+    public void printPlayerCheckedOut(String name) {
+        System.out.println(I18n.getMessage(Messages.PLAYER_CHECKED_OUT, name));
+    }
+
 
 }

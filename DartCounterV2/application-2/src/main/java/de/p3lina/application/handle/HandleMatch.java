@@ -75,16 +75,18 @@ public class HandleMatch {
         try {
             PossibleDarts parsedInput = PossibleDarts.valueOf(userInput);
             Dart dart = new Dart(parsedInput);
+            message.printThrow(player.getName(), dart.getPoints());
             if(playerBusted(player, dart)) {
                 this.currentLeg.setPlayerScore(player, playerScoreBeforeThrow);
+                message.printPlayerBusted(player.getName(), playerScoreBeforeThrow);
                 return DartStatus.BUSTED;
             }
             if(playerCheckedOut(player, dart)) {
                 currentLeg.setWinner(player);
+                message.printPlayerCheckedOut(player.getName());
                 return DartStatus.CHECKOUT;
             }
             //System.out.println("You threw: " + dart.getPoints());
-            message.printThrow(player.getName(), dart.getPoints());
             this.currentLeg.subtractPlayerScore(player, dart.getPoints());
             System.out.println("remaining: " + this.currentLeg.getPlayerScore().get(player));
         }catch(IllegalArgumentException exc) {
@@ -95,6 +97,12 @@ public class HandleMatch {
 
     private boolean playerBusted(Player player, Dart dart) {
         if(dart.getPoints()>this.currentLeg.getPlayerScore().get(player)) {
+            return true;
+        }
+        if(this.currentLeg.getPlayerScore().get(player) - dart.getPoints() == 1) {
+            return true;
+        }
+        if(this.currentLeg.getPlayerScore().get(player) - dart.getPoints() == 0 && !dart.isDoubleNumber()) {
             return true;
         }
         return false;
