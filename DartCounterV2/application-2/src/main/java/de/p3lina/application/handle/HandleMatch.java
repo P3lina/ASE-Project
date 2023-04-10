@@ -73,20 +73,21 @@ public class HandleMatch {
 
     private DartStatus processDart(Player player, int playerScoreBeforeThrow) {
         message.printPlayerInputDart(player.getName());
-        String _test = new UserCommunicationService().getUserInput().toString();
-        UserInput userInput = UserInput.prepareUserDartInput(_test);
+        UserInput userInput = UserInput.prepareUserDartInput(new UserCommunicationService().getUserInput().toString());
         if(!userInput.isValidDart(userInput)) {
             return processDart(player, playerScoreBeforeThrow);
         }
         PossibleDarts parsedInput = PossibleDarts.valueOf(userInput.toString());
         Dart dart = new Dart(parsedInput);
+        message.printThrow(player.getName(), dart.getPoints());
         if(playerBusted(player, dart)) {
+            message.printPlayerBusted(player.getName(), playerScoreBeforeThrow);
             return DartStatus.BUSTED;
         }
         if(playerCheckedOut(player, dart)) {
+            message.printPlayerCheckedOut(player.getName());
             return DartStatus.CHECKOUT;
         }
-        message.printThrow(player.getName(), dart.getPoints());
         this.currentLeg.subtractPlayerScore(player, dart.getPoints());
         message.printRemainingScore(this.currentLeg.getPlayerScore().get(player));
         return DartStatus.NOTHING;
@@ -94,6 +95,12 @@ public class HandleMatch {
 
     private boolean playerBusted(Player player, Dart dart) {
         if(dart.getPoints()>this.currentLeg.getPlayerScore().get(player)) {
+            return true;
+        }
+        if(this.currentLeg.getPlayerScore().get(player) - dart.getPoints() == 1) {
+            return true;
+        }
+        if(this.currentLeg.getPlayerScore().get(player) - dart.getPoints() == 0 && !dart.isDoubleNumber()) {
             return true;
         }
         return false;

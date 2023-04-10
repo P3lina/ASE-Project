@@ -13,4 +13,6 @@ public interface MessagesDuringMatch {
     void printPlayerInputDart(String playerName);
 
     void printThrow(String name, int points);
+    void printPlayerBusted(String name, int resetPointsTo);
+    void printPlayerCheckedOut(String name);
 }
