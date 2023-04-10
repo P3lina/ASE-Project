@@ -112,20 +112,4 @@ public class HandleMatch {
         }
         return false;
     }
-
-    //should be moved to adapters layer in the future
-    private String prepareUserInput(String userInput) {
-        if(userInput.length()==0) {
-            return userInput;
-        }
-        if(Character.isDigit(userInput.charAt(0)) && userInput.length()==1 && Integer.parseInt(userInput)==0) {
-            return "Zero";
-        }
-        if(!Character.isDigit(userInput.charAt(0))) {
-            return userInput.substring(0, 1).toUpperCase() + userInput.substring(1);
-        }
-        StringBuilder sb = new StringBuilder("S");
-        sb.append(userInput);
-        return sb.toString();
-    }
 }
