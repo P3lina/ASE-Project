@@ -1,6 +1,7 @@
 package de.p3lina.application.handle;
 
 import de.p3lina.application.UserCommunicationService;
+import de.p3lina.application.UserInput;
 import de.p3lina.domain.*;
 
 import java.util.List;
@@ -49,6 +50,7 @@ public class HandleMatch {
         for(Player player : players) {
             ThrowStatus throwStatus = processThrow(player);
             if(throwStatus == ThrowStatus.CHECKOUT) {
+                currentLeg.setWinner(player);
                 break;
             }
         }
@@ -59,6 +61,7 @@ public class HandleMatch {
         for(int i = 0; i<3; i++) {
             DartStatus dartStatus = processDart(player, playerScoreBeforeThrow);
             if(dartStatus==DartStatus.BUSTED) {
+                this.currentLeg.setPlayerScore(player, playerScoreBeforeThrow);
                 return ThrowStatus.NOTHING;
             }
             if(dartStatus==DartStatus.CHECKOUT) {
@@ -70,26 +73,22 @@ public class HandleMatch {
 
     private DartStatus processDart(Player player, int playerScoreBeforeThrow) {
         message.printPlayerInputDart(player.getName());
-        String userInput = new UserCommunicationService().getUserInput().toString();
-        userInput = prepareUserInput(userInput);
-        try {
-            PossibleDarts parsedInput = PossibleDarts.valueOf(userInput);
-            Dart dart = new Dart(parsedInput);
-            if(playerBusted(player, dart)) {
-                this.currentLeg.setPlayerScore(player, playerScoreBeforeThrow);
-                return DartStatus.BUSTED;
-            }
-            if(playerCheckedOut(player, dart)) {
-                currentLeg.setWinner(player);
-                return DartStatus.CHECKOUT;
-            }
-            //System.out.println("You threw: " + dart.getPoints());
-            message.printThrow(player.getName(), dart.getPoints());
-            this.currentLeg.subtractPlayerScore(player, dart.getPoints());
-            System.out.println("remaining: " + this.currentLeg.getPlayerScore().get(player));
-        }catch(IllegalArgumentException exc) {
-            processDart(player, playerScoreBeforeThrow);
+        String _test = new UserCommunicationService().getUserInput().toString();
+        UserInput userInput = UserInput.prepareUserDartInput(_test);
+        if(!userInput.isValidDart(userInput)) {
+            return processDart(player, playerScoreBeforeThrow);
         }
+        PossibleDarts parsedInput = PossibleDarts.valueOf(userInput.toString());
+        Dart dart = new Dart(parsedInput);
+        if(playerBusted(player, dart)) {
+            return DartStatus.BUSTED;
+        }
+        if(playerCheckedOut(player, dart)) {
+            return DartStatus.CHECKOUT;
+        }
+        message.printThrow(player.getName(), dart.getPoints());
+        this.currentLeg.subtractPlayerScore(player, dart.getPoints());
+        message.printRemainingScore(this.currentLeg.getPlayerScore().get(player));
         return DartStatus.NOTHING;
     }
 

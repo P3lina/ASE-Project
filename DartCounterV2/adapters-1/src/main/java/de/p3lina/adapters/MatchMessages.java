@@ -24,7 +24,7 @@ public class MatchMessages implements MessagesDuringMatch {
 
     @Override
     public void printRemainingScore(int remainingScore) {
-        System.out.println(remainingScore + " points remaining");
+        System.out.println(I18n.getMessage(Messages.REMAINING_SCORE, remainingScore));
     }
 
     @Override
