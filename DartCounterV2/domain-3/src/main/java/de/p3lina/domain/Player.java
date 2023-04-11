@@ -1,14 +1,16 @@
 package de.p3lina.domain;
 
 import lombok.Getter;
+import lombok.Setter;
 
 public class Player {
 
     @Getter
-    String name;
+    private String name;
 
     public Player(String name){
         this.name = name;
     }
+
 
 }

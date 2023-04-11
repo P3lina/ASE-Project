@@ -8,13 +8,13 @@ public class MatchMessages implements MessagesDuringMatch {
 
 
     @Override
-    public void printCurrentSetNumber() {
-
+    public void printCurrentSetNumber(int setNumber) {
+        System.out.println(I18n.getMessage(Messages.SET_NUMBER, setNumber));
     }
 
     @Override
-    public void printCurrentLegNumber() {
-
+    public void printCurrentLegNumber(int legNumber) {
+        System.out.println(I18n.getMessage(Messages.LEG_NUMBER, legNumber));
     }
 
     @Override
@@ -50,6 +50,11 @@ public class MatchMessages implements MessagesDuringMatch {
     @Override
     public void printPlayerCheckedOut(String name) {
         System.out.println(I18n.getMessage(Messages.PLAYER_CHECKED_OUT, name));
+    }
+
+    @Override
+    public void printPlayerWonSet(String name, int setNumber) {
+        System.out.println(I18n.getMessage(Messages.PLAYER_WON_SET, name, setNumber));
     }
 
 
