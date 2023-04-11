@@ -43,8 +43,8 @@ public class HandleMatch {
         message.printCurrentSetNumber(currentSet.getSetNumber());
         while (currentSet.getWinner() == null) {
             processLeg(players);
-            boolean isSetWon = setWinnerOfCurrentSet(currentSet.getLegs().size(), players.size());
-            if(isSetWon) {
+            if(isSetWon().isSetWon()) {
+                currentSet.setWinner(isSetWon().getPlayer());
                 break;
             }
             this.currentLeg = currentSet.getLegs().get(currentLeg.getLegNumber());
@@ -53,16 +53,20 @@ public class HandleMatch {
     }
 
 
-    private boolean setWinnerOfCurrentSet(int legCount, int playerCount) {
+
+    private IsSetWon isSetWon() {
+        IsSetWon isSetWon = new IsSetWon();
+        int legCount = this.currentSet.getLegs().size();
+        int playerCount = this.match.getPlayers().size();
         Map<Player, Integer> playerAndPlayerWinsWithMostLegsWon = getPlayerAndWinsOfPlayerWithMostLegsWon();
         Player currentWinner = (Player) playerAndPlayerWinsWithMostLegsWon.keySet().toArray()[0];
         int currentWinnerLegsWon = playerAndPlayerWinsWithMostLegsWon.get(currentWinner);
         int legsNeedToWin = legCount / playerCount + 1;
         if(currentWinnerLegsWon<legsNeedToWin) {
-            return false;
+            return isSetWon;
         }
-        currentSet.setWinner(currentWinner);
-        return true;
+        isSetWon.setPlayer(currentWinner);
+        return isSetWon;
     }
 
     private Map<Player, Integer> getPlayerAndWinsOfPlayerWithMostLegsWon() {
