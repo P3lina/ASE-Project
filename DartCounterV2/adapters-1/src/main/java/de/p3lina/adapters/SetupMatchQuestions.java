@@ -32,27 +32,27 @@ public class SetupMatchQuestions {
         printMessageSlowlyToConsole(I18n.getMessage(Messages.START_SCORE));
         int gameMode = checkUserInput(userCommunicationService.getUserInput().toInt());
         printMessageSlowlyToConsole(I18n.getMessage(Messages.HOW_MANY_SETS));
-        int setCount = getValidSetCountFromUser();
+        int setCount = getValidSetCountFromUser(playerCount);
         printMessageSlowlyToConsole(I18n.getMessage(Messages.HOW_MANY_LEGS));
-        int legCount = getValidLegCountFromUser();
+        int legCount = getValidLegCountFromUser(playerCount);
         return new MatchInfos(playerCount, players, gameMode, setCount, legCount);
     }
 
 
-    private int getValidSetCountFromUser() {
+    private int getValidSetCountFromUser(int playerCount) {
         int userInput = userCommunicationService.getUserInput().toInt();
-        if(userInput%2==0) {
+        if(userInput%playerCount==0) {
             printMessageSlowlyToConsole(I18n.getMessage(Messages.INVALID_SET_COUNT));
-            return getValidSetCountFromUser();
+            return getValidSetCountFromUser(playerCount);
         }
         return userInput;
     }
 
-    private int getValidLegCountFromUser() {
+    private int getValidLegCountFromUser(int playerCount) {
         int userInput = userCommunicationService.getUserInput().toInt();
-        if(userInput%2==0) {
+        if(userInput%playerCount==0) {
             printMessageSlowlyToConsole(I18n.getMessage(Messages.INVALID_LEG_COUNT));
-            return getValidLegCountFromUser();
+            return getValidLegCountFromUser(playerCount);
         }
         return userInput;
     }
