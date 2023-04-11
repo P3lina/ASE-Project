@@ -32,10 +32,29 @@ public class SetupMatchQuestions {
         printMessageSlowlyToConsole(I18n.getMessage(Messages.START_SCORE));
         int gameMode = checkUserInput(userCommunicationService.getUserInput().toInt());
         printMessageSlowlyToConsole(I18n.getMessage(Messages.HOW_MANY_SETS));
-        int setCount = checkUserInput(userCommunicationService.getUserInput().toInt());
+        int setCount = getValidSetCountFromUser();
         printMessageSlowlyToConsole(I18n.getMessage(Messages.HOW_MANY_LEGS));
-        int legCount = checkUserInput(userCommunicationService.getUserInput().toInt());
+        int legCount = getValidLegCountFromUser();
         return new MatchInfos(playerCount, players, gameMode, setCount, legCount);
+    }
+
+
+    private int getValidSetCountFromUser() {
+        int userInput = userCommunicationService.getUserInput().toInt();
+        if(userInput%2==0) {
+            printMessageSlowlyToConsole(I18n.getMessage(Messages.INVALID_SET_COUNT));
+            return getValidSetCountFromUser();
+        }
+        return userInput;
+    }
+
+    private int getValidLegCountFromUser() {
+        int userInput = userCommunicationService.getUserInput().toInt();
+        if(userInput%2==0) {
+            printMessageSlowlyToConsole(I18n.getMessage(Messages.INVALID_LEG_COUNT));
+            return getValidLegCountFromUser();
+        }
+        return userInput;
     }
 
     private int checkUserInput(int input) {
