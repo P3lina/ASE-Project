@@ -20,5 +20,6 @@ public class Match {
     @NonNull
     private int startScore;
     @Getter
+    @Setter
     private Player winner;
 }
