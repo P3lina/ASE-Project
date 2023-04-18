@@ -30,15 +30,16 @@ public class HandleMatch {
         List<Player> players = this.match.getPlayers();
         while(match.getWinner() == null) {
             proceedSet(currentSet, players);
-            this.currentSet = match.getSets().get(currentSet.getSetNumber());
-            this.currentLeg = this.currentSet.getLegs().get(0);
             //check if match is won
             if(isMatchWon().isWon()) {
                 match.setWinner(isMatchWon().getPlayer());
+            }else {
+                this.currentSet = match.getSets().get(currentSet.getSetNumber());
+                this.currentLeg = this.currentSet.getLegs().get(0);
             }
         }
         //Print that player x has won
-        System.out.println("GAME OVER");
+        System.out.println(match.getWinner().getName() + " won the match!");
         //make sure the application ends
     }
 
