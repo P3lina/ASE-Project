@@ -4,7 +4,7 @@
 
 ## Supported functionalities
 
-- [ ] track the score of a single dart game
+- [x] track the score of a single dart game
 - [ ] allow input of settings of the number of players, legs, the number of legs to win a set, the number of sets to win a match and which player begins a match
 - [ ] multiple dart game variants, like 501, 301, Cricket etc.
 - [ ] display statistics at the end of a leg
