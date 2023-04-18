@@ -38,9 +38,7 @@ public class HandleMatch {
                 this.currentLeg = this.currentSet.getLegs().get(0);
             }
         }
-        //Print that player x has won
-        System.out.println(match.getWinner().getName() + " won the match!");
-        //make sure the application ends
+        message.printPlayerWonMatch(match.getWinner().getName());
     }
 
     private void proceedSet(Set currentSet, List<Player> players) {
@@ -157,6 +155,8 @@ public class HandleMatch {
     private ThrowStatus processThrow(Player player) {
         int playerScoreBeforeThrow = currentLeg.getPlayerScore().get(player);
         for(int i = 0; i<3; i++) {
+            HandleDart dartHandle = new HandleDart(player, playerScoreBeforeThrow);
+            DartStatus dartStatus = dartHandle.processDart();
             DartStatus dartStatus = processDart(player, playerScoreBeforeThrow);
             if(dartStatus==DartStatus.BUSTED) {
                 this.currentLeg.setPlayerScore(player, playerScoreBeforeThrow);

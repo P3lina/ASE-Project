@@ -15,5 +15,6 @@ public enum Messages {
     INVALID_LEG_COUNT,
     LEG_NUMBER,
     SET_NUMBER,
-    PLAYER_WON_SET
+    PLAYER_WON_SET,
+    PLAYER_WON_MATCH
 }

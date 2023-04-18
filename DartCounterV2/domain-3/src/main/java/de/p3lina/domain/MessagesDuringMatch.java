@@ -17,4 +17,5 @@ public interface MessagesDuringMatch {
     void printPlayerCheckedOut(String name);
 
     void printPlayerWonSet(String name, int setNumber);
+    void printPlayerWonMatch(String name);
 }

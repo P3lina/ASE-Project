@@ -57,5 +57,10 @@ public class MatchMessages implements MessagesDuringMatch {
         System.out.println(I18n.getMessage(Messages.PLAYER_WON_SET, name, setNumber));
     }
 
+    @Override
+    public void printPlayerWonMatch(String name) {
+        System.out.println(I18n.getMessage(Messages.PLAYER_WON_MATCH, name));
+    }
+
 
 }
