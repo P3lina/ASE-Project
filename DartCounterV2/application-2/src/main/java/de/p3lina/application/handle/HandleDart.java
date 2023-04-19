@@ -2,40 +2,64 @@ package de.p3lina.application.handle;
 
 import de.p3lina.application.UserCommunicationService;
 import de.p3lina.application.UserInput;
-import de.p3lina.domain.Dart;
-import de.p3lina.domain.DartStatus;
-import de.p3lina.domain.Player;
-import de.p3lina.domain.PossibleDarts;
+import de.p3lina.domain.*;
 
 public class HandleDart {
 
     private Player player;
-    private int pointsBeforeThrow;
+    private MessagesDuringMatch message;
+    private int currentPlayerScore;
+    private Leg currentLeg;
+    private int playerScoreBeforeThrow;
 
-    public HandleDart(Player player, int pointsBeforeThrow) {
-
+    public HandleDart(Player player, MessagesDuringMatch message, int playerScoreBeforeThrow, Leg currentLeg) {
+        this.player = player;
+        this.currentLeg = currentLeg;
+        this.currentPlayerScore = this.currentLeg.getPlayerScore().get(this.player);
+        this.message = message;
+        this.playerScoreBeforeThrow = playerScoreBeforeThrow;
     }
 
-    private DartStatus processDart(Player player, int playerScoreBeforeThrow) {
+    public DartStatus processDart() {
         message.printPlayerInputDart(player.getName());
         UserInput userInput = UserInput.prepareUserDartInput(new UserCommunicationService().getUserInput().toString());
         if(!userInput.isValidDart(userInput)) {
-            return processDart(player, playerScoreBeforeThrow);
+            return this.processDart();
         }
         PossibleDarts parsedInput = PossibleDarts.valueOf(userInput.toString());
         Dart dart = new Dart(parsedInput);
         message.printThrow(player.getName(), dart.getPoints());
-        if(playerBusted(player, dart)) {
+        if(playerBusted(dart)) {
             message.printPlayerBusted(player.getName(), playerScoreBeforeThrow);
             return DartStatus.BUSTED;
         }
-        if(playerCheckedOut(player, dart)) {
+        if(playerCheckedOut(dart)) {
             message.printPlayerCheckedOut(player.getName());
             return DartStatus.CHECKOUT;
         }
         this.currentLeg.subtractPlayerScore(player, dart.getPoints());
-        message.printRemainingScore(this.currentLeg.getPlayerScore().get(player));
+        message.printRemainingScore(currentPlayerScore);
         return DartStatus.NOTHING;
+    }
+
+    private boolean playerBusted(Dart dart) {
+        if(dart.getPoints()>currentPlayerScore) {
+            return true;
+        }
+        if(currentPlayerScore - dart.getPoints() == 1) {
+            return true;
+        }
+        if(currentPlayerScore - dart.getPoints() == 0 && !dart.isDoubleNumber()) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean playerCheckedOut(Dart dart) {
+        if(dart.getPoints()==currentPlayerScore && dart.isDoubleNumber()) {
+            return true;
+        }
+        return false;
     }
 
 }

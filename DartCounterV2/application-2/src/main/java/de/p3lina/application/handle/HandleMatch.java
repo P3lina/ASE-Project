@@ -155,9 +155,8 @@ public class HandleMatch {
     private ThrowStatus processThrow(Player player) {
         int playerScoreBeforeThrow = currentLeg.getPlayerScore().get(player);
         for(int i = 0; i<3; i++) {
-            HandleDart dartHandle = new HandleDart(player, playerScoreBeforeThrow);
+            HandleDart dartHandle = new HandleDart(player, message, playerScoreBeforeThrow, currentLeg);
             DartStatus dartStatus = dartHandle.processDart();
-            DartStatus dartStatus = processDart(player, playerScoreBeforeThrow);
             if(dartStatus==DartStatus.BUSTED) {
                 this.currentLeg.setPlayerScore(player, playerScoreBeforeThrow);
                 return ThrowStatus.NOTHING;
@@ -167,47 +166,5 @@ public class HandleMatch {
             }
         }
         return ThrowStatus.NOTHING;
-    }
-
-    private DartStatus processDart(Player player, int playerScoreBeforeThrow) {
-        message.printPlayerInputDart(player.getName());
-        UserInput userInput = UserInput.prepareUserDartInput(new UserCommunicationService().getUserInput().toString());
-        if(!userInput.isValidDart(userInput)) {
-            return processDart(player, playerScoreBeforeThrow);
-        }
-        PossibleDarts parsedInput = PossibleDarts.valueOf(userInput.toString());
-        Dart dart = new Dart(parsedInput);
-        message.printThrow(player.getName(), dart.getPoints());
-        if(playerBusted(player, dart)) {
-            message.printPlayerBusted(player.getName(), playerScoreBeforeThrow);
-            return DartStatus.BUSTED;
-        }
-        if(playerCheckedOut(player, dart)) {
-            message.printPlayerCheckedOut(player.getName());
-            return DartStatus.CHECKOUT;
-        }
-        this.currentLeg.subtractPlayerScore(player, dart.getPoints());
-        message.printRemainingScore(this.currentLeg.getPlayerScore().get(player));
-        return DartStatus.NOTHING;
-    }
-
-    private boolean playerBusted(Player player, Dart dart) {
-        if(dart.getPoints()>this.currentLeg.getPlayerScore().get(player)) {
-            return true;
-        }
-        if(this.currentLeg.getPlayerScore().get(player) - dart.getPoints() == 1) {
-            return true;
-        }
-        if(this.currentLeg.getPlayerScore().get(player) - dart.getPoints() == 0 && !dart.isDoubleNumber()) {
-            return true;
-        }
-        return false;
-    }
-
-    private boolean playerCheckedOut(Player player, Dart dart) {
-        if(dart.getPoints()==this.currentLeg.getPlayerScore().get(player)&&dart.isDoubleNumber()) {
-            return true;
-        }
-        return false;
     }
 }
