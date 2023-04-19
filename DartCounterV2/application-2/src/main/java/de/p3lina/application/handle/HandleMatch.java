@@ -155,15 +155,20 @@ public class HandleMatch {
     private ThrowStatus processThrow(Player player) {
         int playerScoreBeforeThrow = currentLeg.getPlayerScore().get(player);
         for(int i = 0; i<3; i++) {
-            HandleDart dartHandle = new HandleDart(player, message, playerScoreBeforeThrow, currentLeg);
-            DartStatus dartStatus = dartHandle.processDart();
+            HandleDart dartHandle = new HandleDart(player, message);
+            Dart dart = dartHandle.processDart();
+            DartStatus dartStatus = dartHandle.getDartStatus(dart, currentLeg.getPlayerScore().get(player));
             if(dartStatus==DartStatus.BUSTED) {
+                message.printPlayerBusted(player.getName(), playerScoreBeforeThrow);
                 this.currentLeg.setPlayerScore(player, playerScoreBeforeThrow);
                 return ThrowStatus.NOTHING;
             }
             if(dartStatus==DartStatus.CHECKOUT) {
+                message.printPlayerCheckedOut(player.getName());
                 return ThrowStatus.CHECKOUT;
             }
+            this.currentLeg.subtractPlayerScore(player, dart.getPoints());
+            message.printRemainingScore(currentLeg.getPlayerScore().get(player));
         }
         return ThrowStatus.NOTHING;
     }

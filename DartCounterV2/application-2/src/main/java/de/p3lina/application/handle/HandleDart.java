@@ -8,19 +8,13 @@ public class HandleDart {
 
     private Player player;
     private MessagesDuringMatch message;
-    private int currentPlayerScore;
-    private Leg currentLeg;
-    private int playerScoreBeforeThrow;
 
-    public HandleDart(Player player, MessagesDuringMatch message, int playerScoreBeforeThrow, Leg currentLeg) {
+    public HandleDart(Player player, MessagesDuringMatch message) {
         this.player = player;
-        this.currentLeg = currentLeg;
-        this.currentPlayerScore = this.currentLeg.getPlayerScore().get(this.player);
         this.message = message;
-        this.playerScoreBeforeThrow = playerScoreBeforeThrow;
     }
 
-    public DartStatus processDart() {
+    public Dart processDart() {
         message.printPlayerInputDart(player.getName());
         UserInput userInput = UserInput.prepareUserDartInput(new UserCommunicationService().getUserInput().toString());
         if(!userInput.isValidDart(userInput)) {
@@ -28,21 +22,20 @@ public class HandleDart {
         }
         PossibleDarts parsedInput = PossibleDarts.valueOf(userInput.toString());
         Dart dart = new Dart(parsedInput);
-        message.printThrow(player.getName(), dart.getPoints());
-        if(playerBusted(dart)) {
-            message.printPlayerBusted(player.getName(), playerScoreBeforeThrow);
+        return dart;
+    }
+
+    public DartStatus getDartStatus(Dart dart, int currentPlayerScore) {
+        if(playerBusted(dart, currentPlayerScore)) {
             return DartStatus.BUSTED;
         }
-        if(playerCheckedOut(dart)) {
-            message.printPlayerCheckedOut(player.getName());
+        if(playerCheckedOut(dart, currentPlayerScore)) {
             return DartStatus.CHECKOUT;
         }
-        this.currentLeg.subtractPlayerScore(player, dart.getPoints());
-        message.printRemainingScore(currentPlayerScore);
         return DartStatus.NOTHING;
     }
 
-    private boolean playerBusted(Dart dart) {
+    private boolean playerBusted(Dart dart, int currentPlayerScore) {
         if(dart.getPoints()>currentPlayerScore) {
             return true;
         }
@@ -55,7 +48,7 @@ public class HandleDart {
         return false;
     }
 
-    private boolean playerCheckedOut(Dart dart) {
+    private boolean playerCheckedOut(Dart dart, int currentPlayerScore) {
         if(dart.getPoints()==currentPlayerScore && dart.isDoubleNumber()) {
             return true;
         }
