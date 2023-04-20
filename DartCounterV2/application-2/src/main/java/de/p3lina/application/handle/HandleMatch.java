@@ -44,7 +44,8 @@ public class HandleMatch {
     private void proceedSet(Set currentSet, List<Player> players) {
         message.printCurrentSetNumber(currentSet.getSetNumber());
         while (currentSet.getWinner() == null) {
-            processLeg(players);
+            HandleLeg legHandle = new HandleLeg(currentLeg, message);
+            legHandle.processLeg(players);
             if(isSetWon().isWon()) {
                 currentSet.setWinner(isSetWon().getPlayer());
                 break;
@@ -132,44 +133,5 @@ public class HandleMatch {
             }
         }
         return new HashMap(Map.of(winner, highestScore));
-    }
-
-    private void processLeg(List<Player> players) {
-        message.printCurrentLegNumber(currentLeg.getLegNumber());
-        while (this.currentLeg.getWinner() == null) {
-            processRound(players);
-        }
-        System.out.println("Player " + currentLeg.getWinner().getName() + " won!");
-    }
-
-    private void processRound(List<Player> players) {
-        for(Player player : players) {
-            ThrowStatus throwStatus = processThrow(player);
-            if(throwStatus == ThrowStatus.CHECKOUT) {
-                currentLeg.setWinner(player);
-                break;
-            }
-        }
-    }
-
-    private ThrowStatus processThrow(Player player) {
-        int playerScoreBeforeThrow = currentLeg.getPlayerScore().get(player);
-        for(int i = 0; i<3; i++) {
-            HandleDart dartHandle = new HandleDart(player, message);
-            Dart dart = dartHandle.processDart();
-            DartStatus dartStatus = dartHandle.getDartStatus(dart, currentLeg.getPlayerScore().get(player));
-            if(dartStatus==DartStatus.BUSTED) {
-                message.printPlayerBusted(player.getName(), playerScoreBeforeThrow);
-                this.currentLeg.setPlayerScore(player, playerScoreBeforeThrow);
-                return ThrowStatus.NOTHING;
-            }
-            if(dartStatus==DartStatus.CHECKOUT) {
-                message.printPlayerCheckedOut(player.getName());
-                return ThrowStatus.CHECKOUT;
-            }
-            this.currentLeg.subtractPlayerScore(player, dart.getPoints());
-            message.printRemainingScore(currentLeg.getPlayerScore().get(player));
-        }
-        return ThrowStatus.NOTHING;
     }
 }

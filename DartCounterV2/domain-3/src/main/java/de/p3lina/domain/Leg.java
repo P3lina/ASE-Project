@@ -26,6 +26,11 @@ public class Leg {
     @Getter
     @NonNull
     private int legNumber;
+    private List<Round> rounds;
+
+    public void addRound(Round round) {
+        rounds.add(round);
+    }
 
 
     public void addPlayerWithScore(Player player, int score) {
