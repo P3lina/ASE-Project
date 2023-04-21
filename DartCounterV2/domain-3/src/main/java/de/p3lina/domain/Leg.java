@@ -56,4 +56,12 @@ public class Leg {
     public void setWinner(Player winner) {
         this.winner = winner;
     }
+
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(List<Player> players) {
+        this.players = players;
+    }
 }

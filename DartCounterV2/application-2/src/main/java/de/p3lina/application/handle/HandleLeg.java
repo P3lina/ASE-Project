@@ -5,7 +5,7 @@ import de.p3lina.domain.MessagesDuringMatch;
 import de.p3lina.domain.Player;
 import de.p3lina.domain.Round;
 
-import java.util.List;
+import java.util.*;
 
 public class HandleLeg {
 
@@ -25,6 +25,7 @@ public class HandleLeg {
             roundNumber++;
             leg.addRound(round);
         }
+        leg.setPlayers(getPlayerOrderForNextLeg(leg));
         System.out.println("Player " + leg.getWinner().getName() + " won!");
         return leg;
     }
@@ -33,6 +34,17 @@ public class HandleLeg {
         for(Player player : players) {
             leg.setPlayerScore(player, startScore);
         }
+    }
+
+    private List<Player> getPlayerOrderForNextLeg(Leg leg) {
+        List<Map.Entry<Player, Integer>> list = new ArrayList<>(leg.getPlayerScore().entrySet());
+        list.sort(Map.Entry.comparingByValue());
+        Collections.reverse(list);
+        List<Player> players = new ArrayList<>();
+        for(Map.Entry<Player, Integer> entry : list) {
+            players.add(entry.getKey());
+        }
+        return players;
     }
 
 

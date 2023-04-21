@@ -23,6 +23,7 @@ public class HandleSet {
             HandleLeg legHandle = new HandleLeg(message);
             Leg leg = legHandle.processLeg(players, legNumber, startScore);
             set.addLeg(leg);
+            players = leg.getPlayers();
             if(isSetWon(set, players.size(), legCount).isWon()) {
                 set.setWinner(isSetWon(set, players.size(), legCount).getPlayer());
                 break;
