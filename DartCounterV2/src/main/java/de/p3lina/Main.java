@@ -3,7 +3,6 @@ package de.p3lina;
 import de.p3lina.adapters.MatchMessages;
 import de.p3lina.adapters.SetupMatchQuestions;
 import de.p3lina.application.handle.HandleMatch;
-import de.p3lina.application.setup.SetupMatch;
 import de.p3lina.domain.Match;
 import de.p3lina.domain.Player;
 

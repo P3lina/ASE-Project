@@ -18,7 +18,9 @@ public class Match {
     @Getter
     @NonNull
     private List<Set> sets;
+    @Getter
     private int legCount;
+    @Getter
     private int setCount;
     @NonNull
     @Getter
