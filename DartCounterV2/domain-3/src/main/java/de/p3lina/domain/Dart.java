@@ -1,6 +1,5 @@
 package de.p3lina.domain;
 
-import lombok.Getter;
 
 
 public class Dart {
@@ -12,9 +11,14 @@ public class Dart {
     }
 
     private PossibleDarts dart;
-    @Getter
     private int points;
-    @Getter
     private boolean doubleNumber;
 
+    public int getPoints() {
+        return points;
+    }
+
+    public boolean isDoubleNumber() {
+        return doubleNumber;
+    }
 }

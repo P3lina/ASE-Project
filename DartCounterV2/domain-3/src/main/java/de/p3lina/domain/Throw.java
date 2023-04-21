@@ -1,18 +1,28 @@
 package de.p3lina.domain;
 
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Throw {
-    @Getter
-    @Setter
     private List<Dart> darts;
-    @Getter
-    @Setter
     private boolean checkedOut;
+
+    public List<Dart> getDarts() {
+        return darts;
+    }
+
+    public void setDarts(List<Dart> darts) {
+        this.darts = darts;
+    }
+
+    public boolean isCheckedOut() {
+        return checkedOut;
+    }
+
+    public void setCheckedOut(boolean checkedOut) {
+        this.checkedOut = checkedOut;
+    }
 
     public Throw() {
         this.darts = new ArrayList<>();

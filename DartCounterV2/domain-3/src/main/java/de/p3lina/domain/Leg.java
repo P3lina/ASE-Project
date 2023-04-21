@@ -1,15 +1,10 @@
 package de.p3lina.domain;
 
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-@RequiredArgsConstructor
 public class Leg {
 
 
@@ -21,19 +16,13 @@ public class Leg {
 
     private List<Player> players;
     private int indexOfPlayerWhoseTurnItIs;
-    @Getter
-    @Setter
     private Player winner;
     private Player beginner;
     //Score hier oder auf dem Player?
-    @NonNull
-    @Getter
     private Map<Player, Integer> playerScore;
     private Map<Player, List<Throw>> playerThrows;
     private Map<Player, Double> playerAverageThrow;
     private Map<Player, Integer> playerThrowCount;
-    @Getter
-    @NonNull
     private int legNumber;
     private List<Round> rounds;
 
@@ -52,4 +41,19 @@ public class Leg {
         this.playerScore.put(player, score);
     }
 
+    public Player getWinner() {
+        return winner;
+    }
+
+    public Map<Player, Integer> getPlayerScore() {
+        return playerScore;
+    }
+
+    public int getLegNumber() {
+        return legNumber;
+    }
+
+    public void setWinner(Player winner) {
+        this.winner = winner;
+    }
 }

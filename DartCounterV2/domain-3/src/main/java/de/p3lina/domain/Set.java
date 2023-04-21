@@ -1,23 +1,13 @@
 package de.p3lina.domain;
 
 
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-
 import java.util.ArrayList;
 import java.util.List;
 public class Set {
 
 
-    @Getter
-    @Setter
     private List<Leg> legs;
-    @Getter
-    @Setter
     private Player winner;
-    @Getter
     private int setNumber;
 
     public Set(int setNumber) {
@@ -38,4 +28,23 @@ public class Set {
         return null;
     }
 
+    public List<Leg> getLegs() {
+        return legs;
+    }
+
+    public void setLegs(List<Leg> legs) {
+        this.legs = legs;
+    }
+
+    public Player getWinner() {
+        return winner;
+    }
+
+    public void setWinner(Player winner) {
+        this.winner = winner;
+    }
+
+    public int getSetNumber() {
+        return setNumber;
+    }
 }

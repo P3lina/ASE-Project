@@ -1,9 +1,5 @@
 package de.p3lina.domain;
 
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,12 +9,18 @@ public class Round {
         this.roundNumber = roundNumber;
     }
 
-    @Getter
     private Map<Player, Throw> playerThrows;
+
+    public Map<Player, Throw> getPlayerThrows() {
+        return playerThrows;
+    }
+
+    public int getRoundNumber() {
+        return roundNumber;
+    }
 
     public void addPlayerThrow(Player player, Throw dartThrow) {
         this.playerThrows.put(player, dartThrow);
     }
-    @Getter
     private int roundNumber;
 }

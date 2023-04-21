@@ -1,10 +1,8 @@
 package de.p3lina.domain;
 
-import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
-@RequiredArgsConstructor
 public class Match {
 
     public Match(MatchInfos matchInfos) {
@@ -15,24 +13,42 @@ public class Match {
         this.sets = new ArrayList<>();
     }
 
-    @Getter
-    @NonNull
     private List<Set> sets;
-    @Getter
     private int legCount;
-    @Getter
     private int setCount;
-    @NonNull
-    @Getter
     private List<Player> players;
-    @NonNull
     private int startScore;
-    @Getter
-    @Setter
     private Player winner;
 
     public void addSet(Set set) {
         this.sets.add(set);
     }
 
+    public List<Set> getSets() {
+        return sets;
+    }
+
+    public int getLegCount() {
+        return legCount;
+    }
+
+    public int getSetCount() {
+        return setCount;
+    }
+
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    public int getStartScore() {
+        return startScore;
+    }
+
+    public Player getWinner() {
+        return winner;
+    }
+
+    public void setWinner(Player winner) {
+        this.winner = winner;
+    }
 }

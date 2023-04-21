@@ -1,26 +1,41 @@
 package de.p3lina.domain;
 
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
-@RequiredArgsConstructor
 public class MatchInfos {
-    @NonNull
-    @Getter
+
+    public MatchInfos(int playerCount, List<Player> players, int startScore, int setCount, int legCount) {
+        this.playerCount = playerCount;
+        this.players = players;
+        this.startScore = startScore;
+        this.setCount = setCount;
+        this.legCount = legCount;
+    }
+
     private int playerCount;
-    @NonNull
-    @Getter
     private List<Player> players;
-    @NonNull
-    @Getter
     private int startScore;
-    @NonNull
-    @Getter
     private int setCount;
-    @NonNull
-    @Getter
     private int legCount;
+
+    public int getPlayerCount() {
+        return playerCount;
+    }
+
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    public int getStartScore() {
+        return startScore;
+    }
+
+    public int getSetCount() {
+        return setCount;
+    }
+
+    public int getLegCount() {
+        return legCount;
+    }
 }

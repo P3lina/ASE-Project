@@ -1,6 +1,5 @@
 package de.p3lina.domain;
 
-import lombok.Getter;
 
 public class IsWon {
 
@@ -8,9 +7,16 @@ public class IsWon {
         this.isWon = false;
         this.player = null;
     }
-    @Getter
     private boolean isWon;
-    @Getter
+
+    public boolean isWon() {
+        return isWon;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
     private Player player;
     public void setPlayer(Player player) {
         this.player = player;

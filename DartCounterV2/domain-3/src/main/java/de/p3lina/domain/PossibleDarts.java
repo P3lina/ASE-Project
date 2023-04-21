@@ -1,14 +1,11 @@
 package de.p3lina.domain;
 
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 /** Ensures that no other darts than those described here can be thrown
  * @author P3lina
  * @version 1.0.0-SNAPSHOT
  * @since 1.0.0-SNAPSHOT
  */
-@RequiredArgsConstructor
 public enum PossibleDarts {
 
 
@@ -78,10 +75,13 @@ public enum PossibleDarts {
     DBull(50, true);
 
 
-    @NonNull
     public int points;
-    @NonNull
     public boolean isDouble;
+
+    PossibleDarts(int points, boolean isDouble) {
+        this.points = points;
+        this.isDouble = isDouble;
+    }
 
     public static PossibleDarts getPossibleDartsByName(String name) {
         PossibleDarts possibleDarts = valueOf(name);
