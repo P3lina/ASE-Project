@@ -2,17 +2,23 @@ package de.p3lina.domain;
 
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 @RequiredArgsConstructor
 public class Match {
 
+    public Match(MatchInfos matchInfos) {
+        this.players = matchInfos.getPlayers();
+        this.startScore = matchInfos.getStartScore();
+        this.setCount = matchInfos.getSetCount();
+        this.legCount = matchInfos.getLegCount();
+        this.sets = new ArrayList<>();
+    }
+
     @Getter
-    @Setter
     @NonNull
     private List<Set> sets;
-    @NonNull
     private int legCount;
-    @NonNull
     private int setCount;
     @NonNull
     @Getter
@@ -22,4 +28,9 @@ public class Match {
     @Getter
     @Setter
     private Player winner;
+
+    public void addSet(Set set) {
+        this.sets.add(set);
+    }
+
 }

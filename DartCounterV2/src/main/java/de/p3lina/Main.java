@@ -20,7 +20,6 @@ public class Main {
             p = new Player("Spieler " + i);
             players.add(p);
         }
-        Match match = new SetupMatch().initializeAndReturnMatch(new SetupMatchQuestions().getMatchInfos());
-        new HandleMatch(match, new MatchMessages());
+        new HandleMatch(new SetupMatchQuestions().getMatchInfos(), new MatchMessages());
     }
 }

@@ -5,10 +5,19 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 @RequiredArgsConstructor
 public class Leg {
+
+
+    public Leg(int legNumber) {
+        this.legNumber = legNumber;
+        this.playerScore = new HashMap<>();
+        this.rounds = new ArrayList<>();
+    }
 
     private List<Player> players;
     private int indexOfPlayerWhoseTurnItIs;

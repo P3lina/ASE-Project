@@ -6,8 +6,8 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
-@RequiredArgsConstructor
 public class Set {
 
 
@@ -18,10 +18,24 @@ public class Set {
     @Setter
     private Player winner;
     @Getter
-    @NonNull
     private int setNumber;
+
+    public Set(int setNumber) {
+        this.setNumber = setNumber;
+        this.legs = new ArrayList<>();
+    }
 
     public void addLeg(Leg leg) {
         legs.add(leg);
     }
+
+    public Leg getLegByIndex(int legIndex) {
+        for(Leg leg : legs) {
+            if(leg.getLegNumber() == legIndex) {
+                return leg;
+            }
+        }
+        return null;
+    }
+
 }

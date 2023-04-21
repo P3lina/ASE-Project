@@ -9,23 +9,31 @@ import java.util.List;
 
 public class HandleLeg {
 
-    private Leg currentLeg;
     private MessagesDuringMatch message;
-    public HandleLeg(Leg currentLeg, MessagesDuringMatch message) {
-        this.currentLeg = currentLeg;
+    public HandleLeg(MessagesDuringMatch message) {
         this.message = message;
     }
 
-    public void processLeg(List<Player> players) {
-        message.printCurrentLegNumber(currentLeg.getLegNumber());
+    public Leg processLeg(List<Player> players, int legNumber, int startScore) {
+        Leg leg = new Leg(legNumber);
+        initPlayerScore(leg, players, startScore);
+        message.printCurrentLegNumber(leg.getLegNumber());
         int roundNumber = 0;
-        while (this.currentLeg.getWinner() == null) {
-            HandleRound roundHandle = new HandleRound(players, currentLeg, message);
+        while (leg.getWinner() == null) {
+            HandleRound roundHandle = new HandleRound(players, leg, message);
             Round round = roundHandle.processRound(roundNumber);
             roundNumber++;
-            currentLeg.addRound(round);
+            leg.addRound(round);
         }
-        System.out.println("Player " + currentLeg.getWinner().getName() + " won!");
+        System.out.println("Player " + leg.getWinner().getName() + " won!");
+        return leg;
     }
+
+    private void initPlayerScore(Leg leg, List<Player> players, int startScore) {
+        for(Player player : players) {
+            leg.setPlayerScore(player, startScore);
+        }
+    }
+
 
 }

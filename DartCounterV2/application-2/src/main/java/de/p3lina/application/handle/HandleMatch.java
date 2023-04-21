@@ -12,57 +12,53 @@ public class HandleMatch {
 
 
     MessagesDuringMatch message;
-    Match match;
-    Set currentSet;
-    Leg currentLeg;
-    public HandleMatch(Match match, MessagesDuringMatch message) {
+    public HandleMatch(MatchInfos matchInfos, MessagesDuringMatch message) {
         this.message = message;
-        this.match = match;
-        this.currentSet = match.getSets().get(0);
-        this.currentLeg = currentSet.getLegs().get(0);
-        this.handleMatch();
-    }
-    private void handleMatch() {
-        proceedMatch();
+        this.proceedMatch(matchInfos);
     }
 
-    private void proceedMatch() {
-        List<Player> players = this.match.getPlayers();
+    private void proceedMatch(MatchInfos matchInfos) {
+        Match match = new Match(matchInfos);
+        List<Player> players = match.getPlayers();
+        int setNumber = 0;
         while(match.getWinner() == null) {
-            proceedSet(currentSet, players);
+            Set set = proceedSet(players, matchInfos.getStartScore(), setNumber);
+            setNumber++;
+            match.addSet(set);
             //check if match is won
-            if(isMatchWon().isWon()) {
-                match.setWinner(isMatchWon().getPlayer());
-            }else {
-                this.currentSet = match.getSets().get(currentSet.getSetNumber());
-                this.currentLeg = this.currentSet.getLegs().get(0);
+            if(isMatchWon(match).isWon()) {
+                match.setWinner(isMatchWon(match).getPlayer());
             }
         }
         message.printPlayerWonMatch(match.getWinner().getName());
     }
 
-    private void proceedSet(Set currentSet, List<Player> players) {
-        message.printCurrentSetNumber(currentSet.getSetNumber());
-        while (currentSet.getWinner() == null) {
-            HandleLeg legHandle = new HandleLeg(currentLeg, message);
-            legHandle.processLeg(players);
-            if(isSetWon().isWon()) {
-                currentSet.setWinner(isSetWon().getPlayer());
+    private Set proceedSet(List<Player> players, int startScore, int setNumber) {
+        message.printCurrentSetNumber(setNumber);
+        Set set = new Set(setNumber);
+        int legNumber = 0;
+        while (set.getWinner() == null) {
+            HandleLeg legHandle = new HandleLeg(message);
+            Leg leg = legHandle.processLeg(players, legNumber, startScore);
+            set.addLeg(leg);
+            if(isSetWon(set, players.size()).isWon()) {
+                set.setWinner(isSetWon(set, players.size()).getPlayer());
                 break;
             }
-            this.currentLeg = currentSet.getLegs().get(currentLeg.getLegNumber());
+            legNumber++;
         }
-        message.printPlayerWonSet(currentSet.getWinner().getName(), currentSet.getSetNumber());
+        message.printPlayerWonSet(set.getWinner().getName(), set.getSetNumber());
+        return set;
     }
 
-    private IsWon isMatchWon() {
+    private IsWon isMatchWon(Match match) {
         IsWon isMatchWon = new IsWon();
         int setCount = match.getSets().size();
-        int playerCount = this.match.getPlayers().size();
-        Map<Player, Integer> playerAndPlayerWinsWithMostSetsWon = getPlayerAndWinsOfPlayerWithMostSetsWon();
+        int playerCount = match.getPlayers().size();
+        Map<Player, Integer> playerAndPlayerWinsWithMostSetsWon = getPlayerAndWinsOfPlayerWithMostSetsWon(match);
         Player currentWinner = (Player) playerAndPlayerWinsWithMostSetsWon.keySet().toArray()[0];
         int currentWinnerSetsWon = playerAndPlayerWinsWithMostSetsWon.get(currentWinner);
-        int setsNeedToWin = setCount / playerCount + 1;
+        int setsNeedToWin = Math.ceilDiv(setCount, playerCount) + 1;
         if(currentWinnerSetsWon<setsNeedToWin) {
             return isMatchWon;
         }
@@ -72,14 +68,13 @@ public class HandleMatch {
 
 
 
-    private IsWon isSetWon() {
+    private IsWon isSetWon(Set set, int playerCount) {
         IsWon isSetWon = new IsWon();
-        int legCount = this.currentSet.getLegs().size();
-        int playerCount = this.match.getPlayers().size();
-        Map<Player, Integer> playerAndPlayerWinsWithMostLegsWon = getPlayerAndWinsOfPlayerWithMostLegsWon();
+        int legCount = set.getLegs().size();
+        Map<Player, Integer> playerAndPlayerWinsWithMostLegsWon = getPlayerAndWinsOfPlayerWithMostLegsWon(set);
         Player currentWinner = (Player) playerAndPlayerWinsWithMostLegsWon.keySet().toArray()[0];
         int currentWinnerLegsWon = playerAndPlayerWinsWithMostLegsWon.get(currentWinner);
-        int legsNeedToWin = legCount / playerCount + 1;
+        int legsNeedToWin = Math.ceilDiv(legCount, playerCount) + 1;
         if(currentWinnerLegsWon<legsNeedToWin) {
             return isSetWon;
         }
@@ -87,9 +82,9 @@ public class HandleMatch {
         return isSetWon;
     }
 
-    private Map<Player, Integer> getPlayerAndWinsOfPlayerWithMostLegsWon() {
+    private Map<Player, Integer> getPlayerAndWinsOfPlayerWithMostLegsWon(Set set) {
         Map<Player, Integer> playerLegWinCount = new HashMap<>();
-        for(Leg leg : currentSet.getLegs()) {
+        for(Leg leg : set.getLegs()) {
             if(leg.getWinner()==null){
                 break;
             }
@@ -111,7 +106,7 @@ public class HandleMatch {
         return new HashMap(Map.of(winner, highestScore));
     }
 
-    private Map<Player, Integer> getPlayerAndWinsOfPlayerWithMostSetsWon() {
+    private Map<Player, Integer> getPlayerAndWinsOfPlayerWithMostSetsWon(Match match) {
         Map<Player, Integer> playerSetWinCount = new HashMap<>();
         for(Set set : match.getSets()) {
             if(set.getWinner()==null){
