@@ -19,6 +19,7 @@ public class HandleThrow {
             HandleDart dartHandle = new HandleDart(player, message);
             Dart dart = dartHandle.processDart();
             dartThrow.addDart(dart);
+            //System.out.println(getPlayerAverage(player, dartThrow, currentLeg));
             int currentPlayerScore = currentLeg.getPlayerScore().get(player);
             DartStatus dartStatus = dartHandle.getDartStatus(dart, currentPlayerScore);
             if(dartStatus==DartStatus.BUSTED) {
@@ -39,5 +40,10 @@ public class HandleThrow {
         }
         return dartThrow;
     }
+
+    //private double getPlayerAverage(Player player, Throw dartThrow, Leg currentLeg) {
+
+    //}
+
 
 }

@@ -34,6 +34,8 @@ public class HandleSet {
         return set;
     }
 
+
+
     private IsWon isSetWon(Set set, int playerCount, int legCount) {
         IsWon isSetWon = new IsWon();
         Map<Player, Integer> playerAndPlayerWinsWithMostLegsWon = getPlayerAndWinsOfPlayerWithMostLegsWon(set);

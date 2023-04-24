@@ -2,7 +2,10 @@ package de.p3lina.adapters;
 
 import de.p3lina.adapters.i18n.I18n;
 import de.p3lina.domain.MessagesDuringMatch;
+import de.p3lina.domain.Player;
 import de.p3lina.domain.i18n.Messages;
+
+import java.util.Map;
 
 public class MatchMessages implements MessagesDuringMatch {
 
@@ -60,6 +63,16 @@ public class MatchMessages implements MessagesDuringMatch {
     @Override
     public void printPlayerWonMatch(String name) {
         System.out.println(I18n.getMessage(Messages.PLAYER_WON_MATCH, name));
+    }
+
+    @Override
+    public void printPlayerWonLeg(String name, int legNumber) {
+        System.out.println(I18n.getMessage(Messages.PLAYER_WON_LEG, name, legNumber));
+    }
+
+    @Override
+    public void printPlayerAverages(String name, Double average) {
+        System.out.println(I18n.getMessage(Messages.PLAYER_AVERAGES, name, average));
     }
 
 

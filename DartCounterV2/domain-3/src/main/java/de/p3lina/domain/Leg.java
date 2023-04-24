@@ -8,10 +8,12 @@ import java.util.Map;
 public class Leg {
 
 
-    public Leg(int legNumber) {
+    public Leg(int legNumber, List<Player> players) {
         this.legNumber = legNumber;
         this.playerScore = new HashMap<>();
         this.rounds = new ArrayList<>();
+        this.playerAverages = new HashMap<>();
+        this.players = players;
     }
 
     private List<Player> players;
@@ -25,6 +27,11 @@ public class Leg {
     private Map<Player, Integer> playerThrowCount;
     private int legNumber;
     private List<Round> rounds;
+    private Map<Player, Double> playerAverages;
+
+    public List<Round> getRounds() {
+        return rounds;
+    }
 
     public void addRound(Round round) {
         rounds.add(round);
@@ -63,5 +70,13 @@ public class Leg {
 
     public void setPlayers(List<Player> players) {
         this.players = players;
+    }
+
+    public Map<Player, Double> getPlayerAverages() {
+        return playerAverages;
+    }
+
+    public void setPlayerAverages(Map<Player, Double> playerAverages) {
+        this.playerAverages = playerAverages;
     }
 }
