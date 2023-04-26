@@ -22,4 +22,5 @@ public interface MessagesDuringMatch {
     void printPlayerWonMatch(String name);
     void printPlayerWonLeg(String name, int legNumber);
     void printPlayerAverages(String name, Double average);
+    void printPlayerRoundAverage(String name, Double average, Double playerLegAverage);
 }

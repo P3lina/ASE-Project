@@ -1,5 +1,6 @@
 package de.p3lina.application.handle;
 
+import de.p3lina.application.PlayerAverageCalculator;
 import de.p3lina.domain.*;
 
 import java.util.List;
@@ -15,8 +16,7 @@ public class HandleRound {
         this.currentLeg = currentLeg;
         this.message = message;
     }
-    public Round processRound(int roundNumber) {
-        Round round = new Round(roundNumber);
+    public Round processRound(Round round) {
         for(Player player : players) {
             HandleThrow throwHandle = new HandleThrow(player, currentLeg, message);
             Throw dartThrow = throwHandle.processThrow(currentLeg);
@@ -26,6 +26,10 @@ public class HandleRound {
                 currentLeg.setWinner(player);
                 break;
             }
+            PlayerAverageCalculator averageCalculator = new PlayerAverageCalculator();
+            Double playerThrowAverage = averageCalculator.getPlayerAverageOfRound(round, player);
+            Double playerLegAverage = averageCalculator.getPlayerAverageOfLeg(player, currentLeg);
+            message.printPlayerRoundAverage(player.getName(), playerThrowAverage, playerLegAverage);
         }
         return round;
     }

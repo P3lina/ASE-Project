@@ -75,5 +75,10 @@ public class MatchMessages implements MessagesDuringMatch {
         System.out.println(I18n.getMessage(Messages.PLAYER_AVERAGES, name, average));
     }
 
+    @Override
+    public void printPlayerRoundAverage(String name, Double average, Double playerLegAverage) {
+        System.out.println(I18n.getMessage(Messages.PLAYER_ROUND_AVERAGE, name, average, playerLegAverage));
+    }
+
 
 }

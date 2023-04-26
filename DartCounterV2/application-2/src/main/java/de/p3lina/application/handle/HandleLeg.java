@@ -19,9 +19,10 @@ public class HandleLeg {
         int roundNumber = 0;
         while (leg.getWinner() == null) {
             HandleRound roundHandle = new HandleRound(players, leg, message);
-            Round round = roundHandle.processRound(roundNumber);
-            roundNumber++;
+            Round round = new Round(roundNumber);
             leg.addRound(round);
+            roundHandle.processRound(round);
+            roundNumber++;
         }
         PlayerAverageCalculator averageCalculator = new PlayerAverageCalculator();
         leg.setPlayerAverages(averageCalculator.getPlayersAveragesOfLeg(leg));

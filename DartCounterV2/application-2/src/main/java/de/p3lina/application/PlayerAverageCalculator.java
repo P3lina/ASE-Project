@@ -38,8 +38,7 @@ public class PlayerAverageCalculator {
         for(Dart dart : dartThrow.getDarts()) {
             sumPlayerDart += dart.getPoints();
         }
-        int dartCountInThrow = dartThrow.getDarts().size();
-        playerAveragePerRound = (double) sumPlayerDart / dartCountInThrow;
+        playerAveragePerRound = sumPlayerDart;
         return playerAveragePerRound;
     }
 
