@@ -10,12 +10,11 @@ public class HandleMatch {
 
 
     MessagesDuringMatch message;
-    public HandleMatch(MatchInfos matchInfos, MessagesDuringMatch message) {
+    public HandleMatch(MessagesDuringMatch message) {
         this.message = message;
-        this.proceedMatch(matchInfos);
     }
 
-    private void proceedMatch(MatchInfos matchInfos) {
+    public Match proceedMatch(MatchInfos matchInfos) {
         Match match = new Match(matchInfos);
         List<Player> players = match.getPlayers();
         int setNumber = 1;
@@ -32,6 +31,7 @@ public class HandleMatch {
             }
         }
         message.printPlayerWonMatch(match.getWinner().getName());
+        return match;
     }
 
 

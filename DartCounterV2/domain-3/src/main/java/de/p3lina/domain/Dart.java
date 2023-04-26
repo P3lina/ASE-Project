@@ -17,6 +17,9 @@ public class Dart {
     public int getPoints() {
         return points;
     }
+    public PossibleDarts getDart() {
+        return dart;
+    }
 
     public boolean isDoubleNumber() {
         return doubleNumber;

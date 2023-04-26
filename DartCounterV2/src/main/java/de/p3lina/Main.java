@@ -2,6 +2,8 @@ package de.p3lina;
 
 import de.p3lina.adapters.MatchMessages;
 import de.p3lina.adapters.SetupMatchQuestions;
+import de.p3lina.application.JSON;
+import de.p3lina.application.MatchHistory;
 import de.p3lina.application.handle.HandleMatch;
 import de.p3lina.domain.Match;
 import de.p3lina.domain.Player;
@@ -19,6 +21,8 @@ public class Main {
             p = new Player("Spieler " + i);
             players.add(p);
         }
-        new HandleMatch(new SetupMatchQuestions().getMatchInfos(), new MatchMessages());
+        HandleMatch matchHandle = new HandleMatch(new MatchMessages());
+        Match match = matchHandle.proceedMatch(new SetupMatchQuestions().getMatchInfos());
+        MatchHistory matchHistory = new MatchHistory(match);
     }
 }
