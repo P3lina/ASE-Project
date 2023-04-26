@@ -22,6 +22,8 @@ public class HandleMatch {
         while(match.getWinner() == null) {
             HandleSet setHandle = new HandleSet(message);
             Set set = setHandle.proceedSet(players, matchInfos.getStartScore(), setNumber, match.getLegCount());
+            //update player order
+            players = set.getLegs().get(set.getLegs().size()-1).getPlayers();
             setNumber++;
             match.addSet(set);
             //check if match is won
