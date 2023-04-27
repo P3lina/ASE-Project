@@ -2,10 +2,7 @@ package de.p3lina.application;
 
 import de.p3lina.domain.*;
 
-import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
-import java.lang.reflect.Array;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -17,7 +14,7 @@ public class MatchHistory {
 
     public void saveMatchHistory(Match match, MessagesOutsideMatch messagesOutsideMatch) {
         boolean shouldMatchHistoryBeSaved = messagesOutsideMatch.askForSaveHistory();
-        if(shouldMatchHistoryBeSaved==false){
+        if(!shouldMatchHistoryBeSaved){
             return;
         }
         String matchHistoryString = getMatchHistoryString(match);
@@ -35,7 +32,7 @@ public class MatchHistory {
         for(Set set : match.getSets()) {
             matchString.append(getSetString(set));
         }
-        matchString.append("\t-> " + match.getWinner().getName() + " won the match!");
+        matchString.append("\t-> ").append(match.getWinner().getName()).append(" won the match!");
         return matchString.toString();
     }
     private String getSetString(Set set) {
@@ -56,12 +53,12 @@ public class MatchHistory {
     private String getRoundString(Round round, Leg leg) {
         StringBuilder roundString = new StringBuilder("\t\t\tRound No. " + round.getRoundNumber() + ":\n");
         for(Player player : round.getPlayerThrows().keySet()) {
-            roundString.append("\t\t\t\t" + player.getName() + ": " + getThrowString(round.getPlayerThrows().get(player), player, leg, round));
+            roundString.append("\t\t\t\t").append(player.getName()).append(": ").append(getThrowString(round.getPlayerThrows().get(player), player, leg, round));
         }
         return roundString.toString();
     }
     private String getThrowString(Throw dartThrow, Player player, Leg leg, Round round){
-        StringBuilder dartString = new StringBuilder("");
+        StringBuilder dartString = new StringBuilder();
         AtomicInteger index = new AtomicInteger(0);
         dartThrow.getDarts().forEach(dart -> {
             if (index.getAndIncrement() > 0) {
@@ -75,10 +72,7 @@ public class MatchHistory {
     }
 
     private boolean isCheckoutThrow(Leg leg, Player player, Round round) {
-        if(leg.getPlayerScore().get(player)==0 && leg.getRounds().get(leg.getRounds().size()-1)==round) {
-            return true;
-        }
-        return false;
+        return leg.getPlayerScore().get(player) == 0 && leg.getRounds().get(leg.getRounds().size() - 1) == round;
     }
 
     private String getPlayerAverages(Leg leg) {
@@ -87,11 +81,11 @@ public class MatchHistory {
         Map<Player, Double> playerAverages = averageCalculator.getPlayersAveragesOfLeg(leg);
         for(int index = 0; index < playerAverages.keySet().size(); index++) {
             Player player = playerAverages.keySet().stream().toList().get(index);
-            playerAveragesString.append("\t\t\t\t\t\t" +
-                    player.getName() +
-                    ": " +
-                    playerAverages.get(player) +
-                    breakLineIfNotEqual(playerAverages.keySet().size(), index));
+            playerAveragesString.append("\t\t\t\t\t\t")
+                    .append(player.getName())
+                    .append(": ")
+                    .append(playerAverages.get(player))
+                    .append(breakLineIfNotEqual(playerAverages.keySet().size(), index));
         }
         return playerAveragesString.toString();
     }
@@ -101,9 +95,5 @@ public class MatchHistory {
             return "";
         }
         return "\n";
-    }
-
-    public void printMatchHistory() {
-
     }
 }

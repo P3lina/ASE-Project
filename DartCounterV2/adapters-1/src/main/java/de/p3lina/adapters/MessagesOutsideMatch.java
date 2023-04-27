@@ -14,9 +14,6 @@ public class MessagesOutsideMatch implements de.p3lina.domain.MessagesOutsideMat
     public boolean askForSaveHistory() {
         System.out.println(I18n.getMessage(Messages.ASK_FOR_SAVE_HISTORY));
         String userInput = userCommunicationService.getUserInput().toString();
-        if(userInput.toLowerCase().equals("y")) {
-            return true;
-        }
-        return false;
+        return userInput.equalsIgnoreCase("y");
     }
 }

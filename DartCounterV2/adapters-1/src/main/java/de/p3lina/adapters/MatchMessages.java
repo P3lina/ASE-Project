@@ -2,10 +2,8 @@ package de.p3lina.adapters;
 
 import de.p3lina.adapters.i18n.I18n;
 import de.p3lina.domain.MessagesDuringMatch;
-import de.p3lina.domain.Player;
 import de.p3lina.domain.i18n.Messages;
 
-import java.util.Map;
 
 public class MatchMessages implements MessagesDuringMatch {
 
