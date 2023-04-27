@@ -2,21 +2,30 @@ package de.p3lina.application;
 
 import de.p3lina.domain.*;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class MatchHistory {
 
 
-    public MatchHistory(Match match) {
-        saveMatchHistory(match);
+    public MatchHistory() {
     }
 
-    private void saveMatchHistory(Match match) {
-        String matchString = getMatchString(match);
-        System.out.println(matchString);
+    public void saveMatchHistory(Match match) {
+        String matchHistoryString = getMatchHistoryString(match);
+        try {
+            FileWriter fileWriter = new FileWriter("matchHistory.txt");
+            fileWriter.write(matchHistoryString);
+            fileWriter.close();
+            System.out.println("History has been saved!");
+        }catch(Exception exc) {
+            System.out.println("History could not be saved!");
+        }
     }
-    private String getMatchString(Match match) {
+    public String getMatchHistoryString(Match match) {
         StringBuilder matchString = new StringBuilder("Match History:\n");
         for(Set set : match.getSets()) {
             matchString.append(getSetString(set));

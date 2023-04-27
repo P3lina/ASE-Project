@@ -23,6 +23,7 @@ public class Main {
         }
         HandleMatch matchHandle = new HandleMatch(new MatchMessages());
         Match match = matchHandle.proceedMatch(new SetupMatchQuestions().getMatchInfos());
-        MatchHistory matchHistory = new MatchHistory(match);
+        MatchHistory matchHistory = new MatchHistory();
+        matchHistory.saveMatchHistory(match);
     }
 }
