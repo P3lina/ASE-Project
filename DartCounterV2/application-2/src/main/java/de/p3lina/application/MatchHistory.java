@@ -15,7 +15,11 @@ public class MatchHistory {
     public MatchHistory() {
     }
 
-    public void saveMatchHistory(Match match) {
+    public void saveMatchHistory(Match match, MessagesOutsideMatch messagesOutsideMatch) {
+        boolean shouldMatchHistoryBeSaved = messagesOutsideMatch.askForSaveHistory();
+        if(shouldMatchHistoryBeSaved==false){
+            return;
+        }
         String matchHistoryString = getMatchHistoryString(match);
         try {
             FileWriter fileWriter = new FileWriter("matchHistory.txt");
