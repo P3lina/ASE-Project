@@ -1,6 +1,7 @@
 package de.p3lina.application.handle;
 
 import de.p3lina.application.PlayerAverageCalculator;
+import de.p3lina.application.PlayerCheckoutQuoteCalculator;
 import de.p3lina.domain.*;
 
 import java.util.*;
@@ -14,21 +15,30 @@ public class HandleLeg {
 
     public Leg processLeg(List<Player> players, int legNumber, int startScore) {
         Leg leg = new Leg(legNumber, players);
+        leg.setStartScore(startScore);
         initPlayerScore(leg, players, startScore);
+        initPlayerScoreAtRoundBegin(leg, players, startScore);
         message.printCurrentLegNumber(leg.getLegNumber());
-        int roundNumber = 0;
+        int roundNumber = 1;
         while (leg.getWinner() == null) {
             HandleRound roundHandle = new HandleRound(players, leg, message);
             Round round = new Round(roundNumber);
             leg.addRound(round);
             roundHandle.processRound(round);
+            updatePlayerScoreAtRoundBegin(leg, players, round);
             roundNumber++;
         }
         PlayerAverageCalculator averageCalculator = new PlayerAverageCalculator();
-        leg.setPlayerAverages(averageCalculator.getPlayersAveragesOfLeg(leg));
+        PlayerCheckoutQuoteCalculator checkoutQuoteCalculator = new PlayerCheckoutQuoteCalculator(leg);
+        Statistics statistics = new Statistics();
+        statistics.setAverage(averageCalculator.getPlayersAveragesOfLeg(leg));
+        //set checkout quote
+        statistics.setCheckoutQuote(checkoutQuoteCalculator.getPlayersCheckoutQuoteOfLeg());
+        leg.setStatistics(statistics);
         leg.setPlayers(getPlayerOrderForNextLeg(leg));
         message.printPlayerWonLeg(leg.getWinner().getName(), leg.getLegNumber());
-        printPlayerAverages(leg.getPlayerAverages());
+        printPlayerCheckoutQuote(leg.getStatistics().getCheckoutQuote());
+        printPlayerAverages(leg.getStatistics().getAverage());
         return leg;
     }
 
@@ -37,6 +47,13 @@ public class HandleLeg {
             Double average = playerAverages.get(player);
             message.printPlayerAverages(player.getName(), average);
         }
+    }
+
+    private void printPlayerCheckoutQuote(Map<Player, Map<Integer, Double>> playerCheckoutQuote) {
+        Player player = (Player) playerCheckoutQuote.keySet().toArray()[0];
+        int legNumber = (int) playerCheckoutQuote.get(player).keySet().toArray()[0];
+        Double checkoutQuote = playerCheckoutQuote.get(player).get(legNumber)*100;
+        message.printPlayerCheckoutQuote(player.getName(), legNumber, checkoutQuote);
     }
 
     private void initPlayerScore(Leg leg, List<Player> players, int startScore) {
@@ -54,6 +71,16 @@ public class HandleLeg {
             players.add(entry.getKey());
         }
         return players;
+    }
+
+    private void initPlayerScoreAtRoundBegin(Leg leg, List<Player> players, int startScore) {
+        for(Player player : players) {
+            leg.putPlayerScoreAtRoundBegin(player, new HashMap<>(1, startScore));
+        }
+    }
+
+    private void updatePlayerScoreAtRoundBegin(Leg leg, List<Player> players, Round round) {
+
     }
 
 

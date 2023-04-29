@@ -1,6 +1,5 @@
 package de.p3lina.domain;
 
-import java.util.Map;
 
 public interface MessagesDuringMatch {
 
@@ -23,4 +22,5 @@ public interface MessagesDuringMatch {
     void printPlayerWonLeg(String name, int legNumber);
     void printPlayerAverages(String name, Double average);
     void printPlayerRoundAverage(String name, Double average, Double playerLegAverage);
+    void printPlayerCheckoutQuote(String name, int legNumber, Double playerCheckoutQuote);
 }

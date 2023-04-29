@@ -14,9 +14,13 @@ public class Leg {
         this.rounds = new ArrayList<>();
         this.playerAverages = new HashMap<>();
         this.players = players;
+        this.playerScoreAtRoundBegin = new HashMap<>();
     }
 
     private List<Player> players;
+    private Statistics statistics;
+    private int startScore;
+    private Map<Player, Map<Integer, Integer>> playerScoreAtRoundBegin;
     private int indexOfPlayerWhoseTurnItIs;
     private Player winner;
     private Player beginner;
@@ -78,5 +82,29 @@ public class Leg {
 
     public void setPlayerAverages(Map<Player, Double> playerAverages) {
         this.playerAverages = playerAverages;
+    }
+
+    public Statistics getStatistics() {
+        return statistics;
+    }
+
+    public void setStatistics(Statistics statistics) {
+        this.statistics = statistics;
+    }
+
+    public int getStartScore() {
+        return startScore;
+    }
+
+    public void setStartScore(int startScore) {
+        this.startScore = startScore;
+    }
+
+    public Map<Player, Map<Integer, Integer>> getPlayerScoreAtRoundBegin() {
+        return playerScoreAtRoundBegin;
+    }
+
+    public void putPlayerScoreAtRoundBegin(Player player, Map<Integer, Integer> scoreAtRoundBegin) {
+        this.playerScoreAtRoundBegin.put(player, scoreAtRoundBegin);
     }
 }

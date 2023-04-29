@@ -24,6 +24,7 @@ public class HandleRound {
             boolean checkOut = dartThrow.isCheckedOut();
             if(checkOut) {
                 currentLeg.setWinner(player);
+                initPlayerThrowInRound(players, round);
                 break;
             }
             PlayerAverageCalculator averageCalculator = new PlayerAverageCalculator();
@@ -35,5 +36,12 @@ public class HandleRound {
     }
 
 
+    private void initPlayerThrowInRound(List<Player> players, Round round) {
+        for(Player player : players) {
+            if(round.getPlayerThrows().get(player)==null) {
+                round.addPlayerThrow(player, new Throw());
+            }
+        }
+    }
 
 }

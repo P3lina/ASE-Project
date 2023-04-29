@@ -78,6 +78,10 @@ public class MatchMessages implements MessagesDuringMatch {
         System.out.println(I18n.getMessage(Messages.PLAYER_ROUND_AVERAGE, name, average, playerLegAverage));
     }
 
+    @Override
+    public void printPlayerCheckoutQuote(String name, int legNumber, Double playerCheckoutQuote) {
+        System.out.println(I18n.getMessage(Messages.PLAYER_CHECKOUT_QUOTE, name, legNumber, playerCheckoutQuote));
+    }
 
 
 }

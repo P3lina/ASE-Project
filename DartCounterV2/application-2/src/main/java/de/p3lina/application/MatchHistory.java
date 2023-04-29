@@ -77,8 +77,7 @@ public class MatchHistory {
 
     private String getPlayerAverages(Leg leg) {
         StringBuilder playerAveragesString = new StringBuilder("\t\t\t\t\tAverages:\n");
-        PlayerAverageCalculator averageCalculator = new PlayerAverageCalculator();
-        Map<Player, Double> playerAverages = averageCalculator.getPlayersAveragesOfLeg(leg);
+        Map<Player, Double> playerAverages = leg.getStatistics().getAverage();
         for(int index = 0; index < playerAverages.keySet().size(); index++) {
             Player player = playerAverages.keySet().stream().toList().get(index);
             playerAveragesString.append("\t\t\t\t\t\t")

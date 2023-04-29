@@ -41,6 +41,9 @@ public class SetupMatchQuestions {
 
     private int getValidSetCountFromUser(int playerCount) {
         int userInput = userCommunicationService.getUserInput().toInt();
+        if(userInput==1) {
+            return 1;
+        }
         if(userInput%playerCount==0) {
             printMessageSlowlyToConsole(I18n.getMessage(Messages.INVALID_SET_COUNT));
             return getValidSetCountFromUser(playerCount);
@@ -50,6 +53,9 @@ public class SetupMatchQuestions {
 
     private int getValidLegCountFromUser(int playerCount) {
         int userInput = userCommunicationService.getUserInput().toInt();
+        if(userInput==1) {
+            return 1;
+        }
         if(userInput%playerCount==0) {
             printMessageSlowlyToConsole(I18n.getMessage(Messages.INVALID_LEG_COUNT));
             return getValidLegCountFromUser(playerCount);
