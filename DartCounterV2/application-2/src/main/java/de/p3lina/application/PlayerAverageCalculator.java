@@ -20,10 +20,19 @@ public class PlayerAverageCalculator {
     public Double getPlayerAverageOfLeg(Player player, Leg leg) {
         double playerAveragePL;
         double sumPlayerAveragesPerRound = 0.0;
+        int totalRoundCount = (leg.getRounds().get(leg.getRounds().size()-1).getRoundNumber());
         for(Round round : leg.getRounds()) {
-            sumPlayerAveragesPerRound += getPlayerAverageOfRound(round, player);
+            Double playerAverageOfRound = getPlayerAverageOfRound(round, player);
+            if(playerAverageOfRound==-1.0) {
+                totalRoundCount--;
+                continue;
+            }
+            sumPlayerAveragesPerRound += playerAverageOfRound;
         }
-        int totalRoundCount = (leg.getRounds().get(leg.getRounds().size()-1).getRoundNumber()+1);
+        if(totalRoundCount==0) {
+            return 0.0;
+        }
+        System.out.println(totalRoundCount);
         playerAveragePL = sumPlayerAveragesPerRound / totalRoundCount;
         return playerAveragePL;
     }
@@ -32,8 +41,8 @@ public class PlayerAverageCalculator {
         double playerAveragePerRound;
         int sumPlayerDart = 0;
         Throw dartThrow = round.getPlayerThrows().get(player);
-        if(dartThrow == null) {
-            return 0.0;
+        if(dartThrow.getDarts().size()==0) {
+            return -1.0;
         }
         for(Dart dart : dartThrow.getDarts()) {
             sumPlayerDart += dart.getPoints();
