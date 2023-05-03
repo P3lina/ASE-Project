@@ -48,6 +48,7 @@ public class MatchHistory {
         for(Round round : leg.getRounds()) {
             legString.append(getRoundString(round, leg));
         }
+        legString.append(legLegCheckoutQuoteString(leg));
         return legString.toString();
     }
     private String getRoundString(Round round, Leg leg) {
@@ -76,11 +77,11 @@ public class MatchHistory {
     }
 
     private String getPlayerAverages(Leg leg) {
-        StringBuilder playerAveragesString = new StringBuilder("\t\t\t\t\tAverages:\n");
+        StringBuilder playerAveragesString = new StringBuilder("\t\t\tAverages:\n");
         Map<Player, Double> playerAverages = leg.getStatistics().getAverage();
         for(int index = 0; index < playerAverages.keySet().size(); index++) {
             Player player = playerAverages.keySet().stream().toList().get(index);
-            playerAveragesString.append("\t\t\t\t\t\t")
+            playerAveragesString.append("\t\t\t\t")
                     .append(player.getName())
                     .append(": ")
                     .append(playerAverages.get(player))
@@ -94,5 +95,25 @@ public class MatchHistory {
             return "";
         }
         return "\n";
+    }
+
+    private String legLegCheckoutQuoteString(Leg leg) {
+        StringBuilder checkoutQuoteStringBuilder = new StringBuilder();
+        Map<Player, Map<Integer, Double>> playerCheckoutQuote = leg.getStatistics().getCheckoutQuote();
+        for(Player player : playerCheckoutQuote.keySet()) {
+            if(playerCheckoutQuote.get(player).get(leg.getLegNumber())==0.0) {
+                continue;
+            }
+            checkoutQuoteStringBuilder.append("\t\t\t")
+                            .append("Checkout Quote:\n")
+                            .append("\t\t\t\t")
+                            .append(player.getName())
+                            .append(": ")
+                            .append(playerCheckoutQuote.get(player).get(leg.getLegNumber())*100)
+                            .append("%")
+                            .append("\n");
+            return checkoutQuoteStringBuilder.toString();
+        }
+        return "";
     }
 }
