@@ -37,7 +37,7 @@ public class HandleLeg {
         leg.setStatistics(statistics);
         leg.setPlayers(getPlayerOrderForNextLeg(leg));
         message.printPlayerWonLeg(leg.getWinner().getName(), leg.getLegNumber());
-        printPlayerCheckoutQuote(leg.getStatistics().getCheckoutQuote());
+        printPlayerCheckoutQuote(leg, leg.getStatistics().getCheckoutQuote());
         printPlayerAverages(leg.getStatistics().getAverage());
         return leg;
     }
@@ -49,11 +49,15 @@ public class HandleLeg {
         }
     }
 
-    private void printPlayerCheckoutQuote(Map<Player, Map<Integer, Double>> playerCheckoutQuote) {
-        Player player = (Player) playerCheckoutQuote.keySet().toArray()[0];
-        int legNumber = (int) playerCheckoutQuote.get(player).keySet().toArray()[0];
-        Double checkoutQuote = playerCheckoutQuote.get(player).get(legNumber)*100;
-        message.printPlayerCheckoutQuote(player.getName(), legNumber, checkoutQuote);
+    private void printPlayerCheckoutQuote(Leg leg, Map<Player, Map<Integer, Double>> playerCheckoutQuote) {
+        for(Player player : playerCheckoutQuote.keySet()) {
+            if(playerCheckoutQuote.get(player).get(leg.getLegNumber())==0.0) {
+                continue;
+            }
+            int legNumber = leg.getLegNumber();
+            Double checkoutQuote = playerCheckoutQuote.get(player).get(legNumber)*100;
+            message.printPlayerCheckoutQuote(player.getName(), legNumber, checkoutQuote);
+        }
     }
 
     private void initPlayerScore(Leg leg, List<Player> players, int startScore) {
