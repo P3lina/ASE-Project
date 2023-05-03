@@ -25,7 +25,6 @@ public class HandleLeg {
             Round round = new Round(roundNumber);
             leg.addRound(round);
             roundHandle.processRound(round);
-            updatePlayerScoreAtRoundBegin(leg, players, round);
             roundNumber++;
         }
         PlayerAverageCalculator averageCalculator = new PlayerAverageCalculator();
@@ -81,10 +80,6 @@ public class HandleLeg {
         for(Player player : players) {
             leg.putPlayerScoreAtRoundBegin(player, new HashMap<>(1, startScore));
         }
-    }
-
-    private void updatePlayerScoreAtRoundBegin(Leg leg, List<Player> players, Round round) {
-
     }
 
 
