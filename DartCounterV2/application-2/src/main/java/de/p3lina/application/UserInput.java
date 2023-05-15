@@ -42,6 +42,12 @@ public class UserInput{
         if(!Character.isDigit(userInputString.charAt(0))) {
             return new UserInput(userInputString.substring(0, 1).toUpperCase() + userInputString.substring(1));
         }
+        if(userInputString.equals("25")) {
+            return new UserInput("SBull");
+        }
+        if(userInputString.equals("50")) {
+            return new UserInput("DBull");
+        }
         StringBuilder sb = new StringBuilder("S");
         sb.append(userInputString);
         return new UserInput(sb.toString());

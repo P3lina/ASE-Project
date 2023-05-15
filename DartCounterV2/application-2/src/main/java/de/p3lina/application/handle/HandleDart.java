@@ -16,7 +16,10 @@ public class HandleDart {
 
     public Dart processDart() {
         message.printPlayerInputDart(player.getName());
-        UserInput userInput = UserInput.prepareUserDartInput(new UserCommunicationService().getUserInput().toString());
+        UserInput userInput = null;
+        while(userInput==null||!userInput.isValidDart(userInput)) {
+            userInput = UserInput.prepareUserDartInput(new UserCommunicationService().getUserInput().toString());
+        }
         if(!userInput.isValidDart(userInput)) {
             return this.processDart();
         }
