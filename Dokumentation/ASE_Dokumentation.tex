@@ -1,0 +1,107 @@
+% ------------------------------------------------------------
+% LaTeX Template für die DHBW zum Schnellstart!
+% Original: https://github.wdf.sap.corp/vtgermany/LaTeX-Template-DHBW
+% ------------------------------------------------------------
+% ---- Präambel mit Angaben zum Dokument
+\input{Inhalt/00_Latex/praeambel}
+
+% ---- Elektronische Version oder Gedruckte Version?
+% ---- Unterschied: Die elektronische Version enthält keinen Platzhalter für die Unterschrift
+\usepackage{ifthen}
+\newboolean{e-Abgabe}
+\setboolean{e-Abgabe}{false}    % false=gedruckte Fassung
+
+% ---- Persönlichen Daten:
+\newcommand{\titel}{Programmentwurf}
+\newcommand{\titelheader}{Dart Counter}
+\newcommand{\arbeit}{Dart Counter}
+\newcommand{\studiengang}{Informatik}
+\newcommand{\studienjahr}{2023}
+\newcommand{\autor}{Robin Purschwitz}
+\newcommand{\autorReverse}{Purschwitz, Robin}
+\newcommand{\verfassungsort}{Karlsruhe}
+\newcommand{\matrikelnr}{2415691}
+\newcommand{\kurs}{TINF20B2}
+\newcommand{\bearbeitungsmonat}{Mai 2023}
+\newcommand{\abgabe}{25. Mai 2023}
+\newcommand{\bearbeitungszeitraum}{12.12.2022 - 25.05.2023}
+\newcommand{\betreuerDhbw}{Dr. Lars Briem}
+
+\input{Inhalt/00_Latex/kopfundFusszeile}
+
+% ---- Hilfreiches
+\newcommand{\zB}{z.\,B. }   % "z.B." mit kleinem Leeraum dazwischen (ohne wäre nicht korrekt)
+\newcommand{\dash}{d.\,h. }
+
+\newcommand{\code}[1]{\texttt{#1}} % Ist einfacher zu schreiben als ständig \texttt und erlaubt
+                                   % Änderungen im Nachhinein, wenn man z.B. Inline-Code anders stylen möchte.
+
+% ---- Silbentrennung (falls LaTeX defaults falsch / nicht gewünscht sind)
+\hyphenation{HANA}         % anstatt HA-NA
+\hyphenation{Graph-Script} % anstatt GraphS-cript
+
+% ---- Beginn des Dokuments
+\begin{document}
+\setlength{\parindent}{0pt}              % Keine Paragraphen Einrückung.
+                                         % Dafür haben wir den Abstand zwischen den Paragraphen.
+\setcounter{secnumdepth}{2}              % Nummerierungstiefe fürs Inhaltsverzeichnis
+\setcounter{tocdepth}{1}                 % Tiefe des Inhaltsverzeichnisses. Ggf. so anpassen,
+                                         % dass das Verzeichnis auf eine Seite passt.
+\sffamily                                % Serifenlose Schrift verwenden.
+
+% ---- Vorspann
+% ------ Titelseite
+\singlespacing
+\include{Inhalt/01_Standard/titelseite}  % Titelseite
+\newcounter{savepage}
+\pagenumbering{Roman}                    % Römische Seitenzahlen
+\onehalfspacing
+
+% ------ Inhaltsverzeichnis
+\singlespacing
+\tableofcontents
+
+% ------ Verzeichnisse
+\renewcommand*{\chapterpagestyle}{plain}
+\pagestyle{plain}
+\include{Inhalt/03_Verzeichnisse/formelgroessen}
+\include{Inhalt/03_Verzeichnisse/abkuerzungen}
+\listoffigures                          % Erzeugen des Abbildungsverzeichnisses 
+\listoftables                           % Erzeugen des Tabellenverzeichnisses
+\renewcommand{\lstlistlistingname}{Quellcodeverzeichnis}
+\lstlistoflistings                      % Erzeugen des Listenverzeichnisses
+\setcounter{savepage}{\value{page}}
+
+
+% ---- Inhalt der Arbeit
+\cleardoublepage
+\pagenumbering{arabic}                  % Arabische Seitenzahlen für den Hauptteil
+\setlength{\parskip}{0.5\baselineskip}  % Abstand zwischen Absätzen
+\rmfamily
+\renewcommand*{\chapterpagestyle}{scrheadings}
+\pagestyle{scrheadings}
+\onehalfspacing
+\include{Inhalt/04_Inhalt/einfuehrung}
+\include{Inhalt/04_Inhalt/cleanArchitecture}
+\include{Inhalt/04_Inhalt/solid}
+\include{Inhalt/04_Inhalt/weiterePrinzipien}
+\include{Inhalt/04_Inhalt/unitTests}
+\include{Inhalt/04_Inhalt/domainDrivenDesign}
+\include{Inhalt/04_Inhalt/refactoring}
+\include{Inhalt/04_Inhalt/entwurfsmuster}
+
+% ---- Literaturverzeichnis
+\cleardoublepage
+\renewcommand*{\chapterpagestyle}{plain}
+\pagestyle{plain}
+\pagenumbering{Roman}                   % Römische Seitenzahlen
+\setcounter{page}{\numexpr\value{savepage}+1}
+\printbibliography[title=Literaturverzeichnis]
+
+% ---- Anhang
+\appendix
+%\clearpage
+%\pagenumbering{Roman}  % römische Seitenzahlen für Anhang
+
+\newpage
+\end{document}
