@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class HandleSet implements Handle<Set, HandleSetProcessParams, IsWon, IsSetWonParameter>  {
+public class HandleSet extends HandleGame<Leg> implements Handle<Set, HandleSetProcessParams, IsWon, IsSetWonParameter>  {
 
 
     private MessagesDuringMatch message;
@@ -46,40 +46,7 @@ public class HandleSet implements Handle<Set, HandleSetProcessParams, IsWon, IsS
         Set set = isSetWonParameter.getSet();
         int legCount = isSetWonParameter.getLegCount();
         int playerCount = isSetWonParameter.getPlayerCount();
-        IsWon isSetWon = new IsWon();
-        Map<Player, Integer> playerAndPlayerWinsWithMostLegsWon = getPlayerAndWinsOfPlayerWithMostLegsWon(set);
-        Player currentWinner = (Player) playerAndPlayerWinsWithMostLegsWon.keySet().toArray()[0];
-        int currentWinnerLegsWon = playerAndPlayerWinsWithMostLegsWon.get(currentWinner);
-        int legsNeedToWin = legCount / playerCount + 1;
-        if(currentWinnerLegsWon<legsNeedToWin) {
-            return isSetWon;
-        }
-        isSetWon.setPlayer(currentWinner);
-        return isSetWon;
-    }
-
-    private Map<Player, Integer> getPlayerAndWinsOfPlayerWithMostLegsWon(Set set) {
-        Map<Player, Integer> playerLegWinCount = new HashMap<>();
-        for(Leg leg : set.getLegs()) {
-            if(leg.getWinner()==null){
-                break;
-            }
-            Player winner = leg.getWinner();
-            if(playerLegWinCount.get(winner)==null) {
-                playerLegWinCount.put(winner, 1);
-                continue;
-            }
-            playerLegWinCount.put(winner, playerLegWinCount.get(winner) + 1);
-        }
-        int highestScore = 0;
-        Player winner = null;
-        for(Player player : playerLegWinCount.keySet()) {
-            if(playerLegWinCount.get(player)>highestScore) {
-                highestScore = playerLegWinCount.get(player);
-                winner = player;
-            }
-        }
-        return new HashMap(Map.of(winner, highestScore));
+        return super.isMatchSetWon(set.getLegs(), Leg::getWinner, legCount, playerCount);
     }
 
 }

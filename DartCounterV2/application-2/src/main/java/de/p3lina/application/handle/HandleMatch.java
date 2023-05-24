@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class HandleMatch implements Handle<Match, MatchInfos, IsWon, Match>{
+public class HandleMatch extends HandleGame<Set> implements Handle<Match, MatchInfos, IsWon, Match>{
 
 
     MessagesDuringMatch message;
@@ -37,45 +37,8 @@ public class HandleMatch implements Handle<Match, MatchInfos, IsWon, Match>{
 
 
     public IsWon isMatchSetWon(Match match) {
-        IsWon isMatchWon = new IsWon();
         int setCount = match.getSetCount();
         int playerCount = match.getPlayers().size();
-        Map<Player, Integer> playerAndPlayerWinsWithMostSetsWon = getPlayerAndWinsOfPlayerWithMostSetsWon(match);
-        Player currentWinner = (Player) playerAndPlayerWinsWithMostSetsWon.keySet().toArray()[0];
-        int currentWinnerSetsWon = playerAndPlayerWinsWithMostSetsWon.get(currentWinner);
-        int setsNeedToWin = setCount / playerCount + 1;
-        if(currentWinnerSetsWon<setsNeedToWin) {
-            return isMatchWon;
-        }
-        isMatchWon.setPlayer(currentWinner);
-        return isMatchWon;
-    }
-
-
-
-
-
-    private Map<Player, Integer> getPlayerAndWinsOfPlayerWithMostSetsWon(Match match) {
-        Map<Player, Integer> playerSetWinCount = new HashMap<>();
-        for(Set set : match.getSets()) {
-            if(set.getWinner()==null){
-                break;
-            }
-            Player winner = set.getWinner();
-            if(playerSetWinCount.get(winner)==null) {
-                playerSetWinCount.put(winner, 1);
-                continue;
-            }
-            playerSetWinCount.put(winner, playerSetWinCount.get(winner) + 1);
-        }
-        int highestScore = 0;
-        Player winner = null;
-        for(Player player : playerSetWinCount.keySet()) {
-            if(playerSetWinCount.get(player)>highestScore) {
-                highestScore = playerSetWinCount.get(player);
-                winner = player;
-            }
-        }
-        return new HashMap(Map.of(winner, highestScore));
+        return super.isMatchSetWon(match.getSets(), Set::getWinner, setCount, playerCount);
     }
 }
