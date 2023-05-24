@@ -1,4 +1,4 @@
-package de.p3lina.domain;
+package de.p3lina.domain.messages;
 
 public interface MessagesOutsideMatch {
 

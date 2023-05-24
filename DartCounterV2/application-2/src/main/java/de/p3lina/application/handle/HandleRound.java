@@ -2,10 +2,11 @@ package de.p3lina.application.handle;
 
 import de.p3lina.application.PlayerAverageCalculator;
 import de.p3lina.domain.*;
+import de.p3lina.domain.messages.MessagesDuringMatch;
 
 import java.util.List;
 
-public class HandleRound {
+public class HandleRound implements Handle<Round, Round, Object, Object>{
 
     private List<Player> players;
     private Leg currentLeg;
@@ -16,10 +17,10 @@ public class HandleRound {
         this.currentLeg = currentLeg;
         this.message = message;
     }
-    public Round processRound(Round round) {
+    public Round process(Round round) {
         for(Player player : players) {
             HandleThrow throwHandle = new HandleThrow(player, currentLeg, message);
-            Throw dartThrow = throwHandle.processThrow(currentLeg);
+            Throw dartThrow = throwHandle.process(currentLeg);
             round.addPlayerThrow(player, dartThrow);
             boolean checkOut = dartThrow.isCheckedOut();
             if(checkOut) {
@@ -33,6 +34,11 @@ public class HandleRound {
             message.printPlayerRoundAverage(player.getName(), playerThrowAverage, playerLegAverage);
         }
         return round;
+    }
+
+    @Override
+    public Object isMatchSetWon(Object something) {
+        return null;
     }
 
 

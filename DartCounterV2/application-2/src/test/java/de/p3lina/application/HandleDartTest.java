@@ -2,6 +2,7 @@ package de.p3lina.application;
 
 import de.p3lina.application.handle.HandleDart;
 import de.p3lina.domain.*;
+import de.p3lina.domain.messages.MessagesDuringMatch;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -24,13 +25,13 @@ public class HandleDartTest {
     public void setup(){
         this.player = new Player("Player1");
         this.messages = new MessagesDuringMatchMock();
-        this.dartHandle = new HandleDart(this.player, this.messages);
+        this.dartHandle = new HandleDart(this.messages);
     }
     @Test
     public void handleDartTest() {
         System.setIn(new ByteArrayInputStream(String.join("\n",userInputLines).getBytes()));
         for(int i=0;i<5;i++) {
-            assertEquals(dartPointsOutputLines.remove(0), dartHandle.processDart().getPoints());
+            assertEquals(dartPointsOutputLines.remove(0), dartHandle.process(this.player).getPoints());
         }
     }
 

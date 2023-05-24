@@ -1,8 +1,9 @@
 package de.p3lina.application.handle;
 
 import de.p3lina.domain.*;
+import de.p3lina.domain.messages.MessagesDuringMatch;
 
-public class HandleThrow {
+public class HandleThrow implements Handle<Throw, Leg, Object, Object>{
 
     private Player player;
     private MessagesDuringMatch message;
@@ -11,13 +12,13 @@ public class HandleThrow {
         this.player = player;
         this.message = message;
     }
-
-    public Throw processThrow(Leg currentLeg) {
+    @Override
+    public Throw process(Leg currentLeg) {
         Throw dartThrow = new Throw();
         int playerScoreBeforeThrow = currentLeg.getPlayerScore().get(player);
         for(int i = 0; i<3; i++) {
-            HandleDart dartHandle = new HandleDart(player, message);
-            Dart dart = dartHandle.processDart();
+            HandleDart dartHandle = new HandleDart(message);
+            Dart dart = dartHandle.process(player);
             dartThrow.addDart(dart);
             //System.out.println(getPlayerAverage(player, dartThrow, currentLeg));
             int currentPlayerScore = currentLeg.getPlayerScore().get(player);
@@ -40,6 +41,12 @@ public class HandleThrow {
         }
         return dartThrow;
     }
+
+    @Override
+    public Object isMatchSetWon(Object something) {
+        return null;
+    }
+
 
     //private double getPlayerAverage(Player player, Throw dartThrow, Leg currentLeg) {
 

@@ -1,12 +1,13 @@
 package de.p3lina.application.handle;
 
 import de.p3lina.domain.*;
+import de.p3lina.domain.messages.MessagesDuringMatch;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class HandleSet {
+public class HandleSet implements Handle<Set, HandleSetProcessParams, IsWon, IsSetWonParameter>  {
 
 
     private MessagesDuringMatch message;
@@ -15,18 +16,22 @@ public class HandleSet {
         this.message = message;
     }
 
-    public Set proceedSet(List<Player> players, int startScore, int setNumber, int legCount) {
+    public Set process(HandleSetProcessParams params) {
+        List<Player> players = params.getPlayers();
+        int startScore = params.getStartScore();
+        int setNumber = params.getSetNumber();
+        int legCount = params.getLegCount();
         message.printCurrentSetNumber(setNumber);
         Set set = new Set(setNumber);
         int legNumber = 1;
         while (set.getWinner() == null) {
             HandleLeg legHandle = new HandleLeg(message);
-            Leg leg = legHandle.processLeg(players, legNumber, startScore);
+            Leg leg = legHandle.process(new HandleLegProcessParams(players, legNumber, startScore));
             set.addLeg(leg);
             //updated player order
             players = leg.getPlayers();
-            if(isSetWon(set, players.size(), legCount).isWon()) {
-                set.setWinner(isSetWon(set, players.size(), legCount).getPlayer());
+            if(isMatchSetWon(new IsSetWonParameter(set, players.size(), legCount)).isWon()) {
+                set.setWinner(isMatchSetWon(new IsSetWonParameter(set, players.size(), legCount)).getPlayer());
                 break;
             }
             legNumber++;
@@ -37,7 +42,10 @@ public class HandleSet {
 
 
 
-    private IsWon isSetWon(Set set, int playerCount, int legCount) {
+    public IsWon isMatchSetWon(IsSetWonParameter isSetWonParameter) {
+        Set set = isSetWonParameter.getSet();
+        int legCount = isSetWonParameter.getLegCount();
+        int playerCount = isSetWonParameter.getPlayerCount();
         IsWon isSetWon = new IsWon();
         Map<Player, Integer> playerAndPlayerWinsWithMostLegsWon = getPlayerAndWinsOfPlayerWithMostLegsWon(set);
         Player currentWinner = (Player) playerAndPlayerWinsWithMostLegsWon.keySet().toArray()[0];

@@ -1,6 +1,6 @@
 package de.p3lina.application;
 
-import de.p3lina.domain.MessagesDuringMatch;
+import de.p3lina.domain.messages.MessagesDuringMatch;
 
 public class MessagesDuringMatchMock implements MessagesDuringMatch {
     @Override
@@ -14,17 +14,7 @@ public class MessagesDuringMatchMock implements MessagesDuringMatch {
     }
 
     @Override
-    public void printStatistics() {
-
-    }
-
-    @Override
     public void printRemainingScore(int remainingScore) {
-
-    }
-
-    @Override
-    public void printWhoseTurnItIs(String playerName) {
 
     }
 
@@ -33,10 +23,6 @@ public class MessagesDuringMatchMock implements MessagesDuringMatch {
 
     }
 
-    @Override
-    public void printThrow(String name, int points) {
-
-    }
 
     @Override
     public void printPlayerBusted(String name, int resetPointsTo) {

@@ -3,17 +3,21 @@ package de.p3lina.application.handle;
 import de.p3lina.application.PlayerAverageCalculator;
 import de.p3lina.application.PlayerCheckoutQuoteCalculator;
 import de.p3lina.domain.*;
+import de.p3lina.domain.messages.MessagesDuringMatch;
 
 import java.util.*;
 
-public class HandleLeg {
+public class HandleLeg implements Handle<Leg, HandleLegProcessParams, Object, Object> {
 
     private MessagesDuringMatch message;
     public HandleLeg(MessagesDuringMatch message) {
         this.message = message;
     }
 
-    public Leg processLeg(List<Player> players, int legNumber, int startScore) {
+    public Leg process(HandleLegProcessParams params) {
+        List<Player> players = params.getPlayers();
+        int legNumber = params.getLegNumber();
+        int startScore = params.getStartScore();
         Leg leg = new Leg(legNumber, players);
         leg.setStartScore(startScore);
         initPlayerScore(leg, players, startScore);
@@ -24,7 +28,7 @@ public class HandleLeg {
             HandleRound roundHandle = new HandleRound(players, leg, message);
             Round round = new Round(roundNumber);
             leg.addRound(round);
-            roundHandle.processRound(round);
+            roundHandle.process(round);
             roundNumber++;
         }
         PlayerAverageCalculator averageCalculator = new PlayerAverageCalculator();
@@ -39,6 +43,11 @@ public class HandleLeg {
         printPlayerCheckoutQuote(leg, leg.getStatistics().getCheckoutQuote());
         printPlayerAverages(leg.getStatistics().getAverage());
         return leg;
+    }
+
+    @Override
+    public Object isMatchSetWon(Object something) {
+        return null;
     }
 
     private void printPlayerAverages(Map<Player, Double> playerAverages) {

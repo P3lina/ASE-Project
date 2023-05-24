@@ -15,7 +15,7 @@ public class Main {
         ScannerStore.setScanner(new Scanner(System.in));
         MatchMessages messages = new MatchMessages();
         HandleMatch matchHandle = new HandleMatch(messages);
-        Match match = matchHandle.proceedMatch(new SetupMatchQuestions().getMatchInfos());
+        Match match = matchHandle.process(new SetupMatchQuestions().getMatchInfos());
         MessagesOutsideMatch messagesOutsideMatch = new MessagesOutsideMatch();
         MatchHistory matchHistory = new MatchHistory();
         matchHistory.saveMatchHistory(match, messagesOutsideMatch);
