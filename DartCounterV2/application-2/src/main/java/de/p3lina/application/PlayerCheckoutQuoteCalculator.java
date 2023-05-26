@@ -49,21 +49,35 @@ public class PlayerCheckoutQuoteCalculator {
     private void fillPlayerScoreAtRoundBeginMap() {
         int startScore = leg.getStartScore();
         for(Player player : leg.getPlayers()) {
-            int scoreAtBeginOfRound = startScore;
-            Map<Integer, Integer> roundScore = leg.getPlayerScoreAtRoundBegin().get(player);
-            for(Round round : leg.getRounds()) {
-                Throw dartThrow = round.getPlayerThrows().get(player);
-                int scoreToSubtract = 0;
-                for(Dart dart : dartThrow.getDarts()) {
-                    scoreToSubtract += dart.getPoints();
-                }
-                if(scoreToSubtract>scoreAtBeginOfRound) {
-                    scoreToSubtract = 0;
-                }
-                roundScore.put(round.getRoundNumber(), scoreAtBeginOfRound);
-                scoreAtBeginOfRound -=scoreToSubtract;
-            }
-            leg.putPlayerScoreAtRoundBegin(player,roundScore);
+            fillForPlayer(startScore, player);
         }
     }
+
+    private void fillForPlayer(int startScore, Player player) {
+        int scoreAtBeginOfRound = startScore;
+        Map<Integer, Integer> roundScore = leg.getPlayerScoreAtRoundBegin().get(player);
+        if(roundScore == null) {
+            roundScore = new HashMap<>();
+            leg.putPlayerScoreAtRoundBegin(player, roundScore);
+        }
+        for(Round round : leg.getRounds()) {
+            scoreAtBeginOfRound = fillForRound(player, scoreAtBeginOfRound, roundScore, round);
+        }
+        leg.putPlayerScoreAtRoundBegin(player,roundScore);
+    }
+
+    private static int fillForRound(Player player, int scoreAtBeginOfRound, Map<Integer, Integer> roundScore, Round round) {
+        Throw dartThrow = round.getPlayerThrows().get(player);
+        int scoreToSubtract = 0;
+        for(Dart dart : dartThrow.getDarts()) {
+            scoreToSubtract += dart.getPoints();
+        }
+        if(scoreToSubtract> scoreAtBeginOfRound) {
+            scoreToSubtract = 0;
+        }
+        roundScore.put(round.getRoundNumber(), scoreAtBeginOfRound);
+        scoreAtBeginOfRound -=scoreToSubtract;
+        return scoreAtBeginOfRound;
+    }
+
 }
