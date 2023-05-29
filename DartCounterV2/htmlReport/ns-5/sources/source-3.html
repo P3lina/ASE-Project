@@ -1,0 +1,198 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > HandleLeg</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">de.p3lina.application.handle</a>
+</div>
+
+<h1>Coverage Summary for Class: HandleLeg (de.p3lina.application.handle)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">HandleLeg</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/55)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package de.p3lina.application.handle;
+&nbsp;
+&nbsp;import de.p3lina.application.PlayerAverageCalculator;
+&nbsp;import de.p3lina.application.PlayerCheckoutQuoteCalculator;
+&nbsp;import de.p3lina.domain.*;
+&nbsp;import de.p3lina.domain.messages.MessagesDuringMatch;
+&nbsp;
+&nbsp;import java.util.*;
+&nbsp;
+&nbsp;public class HandleLeg implements Handle&lt;Leg, HandleLegProcessParams, Object, Object&gt; {
+&nbsp;
+&nbsp;    private MessagesDuringMatch message;
+<b class="nc">&nbsp;    public HandleLeg(MessagesDuringMatch message) {</b>
+<b class="nc">&nbsp;        this.message = message;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Leg process(HandleLegProcessParams params) {
+<b class="nc">&nbsp;        List&lt;Player&gt; players = params.getPlayers();</b>
+<b class="nc">&nbsp;        int legNumber = params.getLegNumber();</b>
+<b class="nc">&nbsp;        int startScore = params.getStartScore();</b>
+<b class="nc">&nbsp;        Leg leg = new Leg(legNumber, players);</b>
+<b class="nc">&nbsp;        leg.setStartScore(startScore);</b>
+<b class="nc">&nbsp;        initPlayerScore(leg, players, startScore);</b>
+<b class="nc">&nbsp;        initPlayerScoreAtRoundBegin(leg, players, startScore);</b>
+<b class="nc">&nbsp;        message.printCurrentLegNumber(leg.getLegNumber());</b>
+<b class="nc">&nbsp;        int roundNumber = 1;</b>
+<b class="nc">&nbsp;        while (leg.getWinner() == null) {</b>
+<b class="nc">&nbsp;            HandleRound roundHandle = new HandleRound(players, leg, message);</b>
+<b class="nc">&nbsp;            Round round = new Round(roundNumber);</b>
+<b class="nc">&nbsp;            leg.addRound(round);</b>
+<b class="nc">&nbsp;            roundHandle.process(round);</b>
+<b class="nc">&nbsp;            roundNumber++;</b>
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        PlayerAverageCalculator averageCalculator = new PlayerAverageCalculator();</b>
+<b class="nc">&nbsp;        PlayerCheckoutQuoteCalculator checkoutQuoteCalculator = new PlayerCheckoutQuoteCalculator(leg);</b>
+<b class="nc">&nbsp;        Statistics statistics = new Statistics();</b>
+<b class="nc">&nbsp;        statistics.setAverage(averageCalculator.getPlayersAveragesOfLeg(leg));</b>
+&nbsp;        //set checkout quote
+<b class="nc">&nbsp;        statistics.setCheckoutQuote(checkoutQuoteCalculator.getPlayersCheckoutQuoteOfLeg());</b>
+<b class="nc">&nbsp;        leg.setStatistics(statistics);</b>
+<b class="nc">&nbsp;        leg.setPlayers(getPlayerOrderForNextLeg(leg));</b>
+<b class="nc">&nbsp;        message.printPlayerWonLeg(leg.getWinner().getName(), leg.getLegNumber());</b>
+<b class="nc">&nbsp;        printPlayerCheckoutQuote(leg, leg.getStatistics().getCheckoutQuote());</b>
+<b class="nc">&nbsp;        printPlayerAverages(leg.getStatistics().getAverage());</b>
+<b class="nc">&nbsp;        return leg;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public Object isMatchSetWon(Object something) {
+<b class="nc">&nbsp;        return null;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void printPlayerAverages(Map&lt;Player, Double&gt; playerAverages) {
+<b class="nc">&nbsp;        for(Player player : playerAverages.keySet()) {</b>
+<b class="nc">&nbsp;            Double average = playerAverages.get(player);</b>
+<b class="nc">&nbsp;            message.printPlayerAverages(player.getName(), average);</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void printPlayerCheckoutQuote(Leg leg, Map&lt;Player, Map&lt;Integer, Double&gt;&gt; playerCheckoutQuote) {
+<b class="nc">&nbsp;        for(Player player : playerCheckoutQuote.keySet()) {</b>
+<b class="nc">&nbsp;            if(playerCheckoutQuote.get(player).get(leg.getLegNumber())==0.0) {</b>
+<b class="nc">&nbsp;                continue;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            int legNumber = leg.getLegNumber();</b>
+<b class="nc">&nbsp;            Double checkoutQuote = playerCheckoutQuote.get(player).get(legNumber)*100;</b>
+<b class="nc">&nbsp;            message.printPlayerCheckoutQuote(player.getName(), legNumber, checkoutQuote);</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void initPlayerScore(Leg leg, List&lt;Player&gt; players, int startScore) {
+<b class="nc">&nbsp;        for(Player player : players) {</b>
+<b class="nc">&nbsp;            leg.setPlayerScore(player, startScore);</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private List&lt;Player&gt; getPlayerOrderForNextLeg(Leg leg) {
+<b class="nc">&nbsp;        List&lt;Map.Entry&lt;Player, Integer&gt;&gt; list = new ArrayList&lt;&gt;(leg.getPlayerScore().entrySet());</b>
+<b class="nc">&nbsp;        list.sort(Map.Entry.comparingByValue());</b>
+<b class="nc">&nbsp;        Collections.reverse(list);</b>
+<b class="nc">&nbsp;        List&lt;Player&gt; players = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        for(Map.Entry&lt;Player, Integer&gt; entry : list) {</b>
+<b class="nc">&nbsp;            players.add(entry.getKey());</b>
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        return players;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void initPlayerScoreAtRoundBegin(Leg leg, List&lt;Player&gt; players, int startScore) {
+<b class="nc">&nbsp;        for(Player player : players) {</b>
+<b class="nc">&nbsp;            leg.putPlayerScoreAtRoundBegin(player, new HashMap&lt;&gt;(1, startScore));</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-24 20:00</div>
+</div>
+</body>
+</html>

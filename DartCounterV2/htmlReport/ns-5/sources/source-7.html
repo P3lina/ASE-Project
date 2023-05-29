@@ -1,0 +1,159 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > HandleThrow</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">de.p3lina.application.handle</a>
+</div>
+
+<h1>Coverage Summary for Class: HandleThrow (de.p3lina.application.handle)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">HandleThrow</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/26)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package de.p3lina.application.handle;
+&nbsp;
+&nbsp;import de.p3lina.domain.*;
+&nbsp;import de.p3lina.domain.messages.MessagesDuringMatch;
+&nbsp;
+&nbsp;public class HandleThrow implements Handle&lt;Throw, Leg, Object, Object&gt;{
+&nbsp;
+&nbsp;    private Player player;
+&nbsp;    private MessagesDuringMatch message;
+&nbsp;
+<b class="nc">&nbsp;    public HandleThrow(Player player, Leg currentLeg, MessagesDuringMatch message) {</b>
+<b class="nc">&nbsp;        this.player = player;</b>
+<b class="nc">&nbsp;        this.message = message;</b>
+&nbsp;    }
+&nbsp;    @Override
+&nbsp;    public Throw process(Leg currentLeg) {
+<b class="nc">&nbsp;        Throw dartThrow = new Throw();</b>
+<b class="nc">&nbsp;        int playerScoreBeforeThrow = currentLeg.getPlayerScore().get(player);</b>
+<b class="nc">&nbsp;        for(int i = 0; i&lt;3; i++) {</b>
+<b class="nc">&nbsp;            HandleDart dartHandle = new HandleDart(message);</b>
+<b class="nc">&nbsp;            Dart dart = dartHandle.process(player);</b>
+<b class="nc">&nbsp;            dartThrow.addDart(dart);</b>
+&nbsp;            //System.out.println(getPlayerAverage(player, dartThrow, currentLeg));
+<b class="nc">&nbsp;            int currentPlayerScore = currentLeg.getPlayerScore().get(player);</b>
+<b class="nc">&nbsp;            DartStatus dartStatus = dartHandle.getDartStatus(dart, currentPlayerScore);</b>
+<b class="nc">&nbsp;            if(dartStatus==DartStatus.BUSTED) {</b>
+<b class="nc">&nbsp;                message.printPlayerBusted(player.getName(), playerScoreBeforeThrow);</b>
+<b class="nc">&nbsp;                currentLeg.setPlayerScore(player, playerScoreBeforeThrow);</b>
+<b class="nc">&nbsp;                dartThrow.setCheckedOut(false);</b>
+<b class="nc">&nbsp;                break;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            if(dartStatus==DartStatus.CHECKOUT) {</b>
+<b class="nc">&nbsp;                message.printPlayerCheckedOut(player.getName());</b>
+<b class="nc">&nbsp;                currentLeg.subtractPlayerScore(player, dart.getPoints());</b>
+<b class="nc">&nbsp;                dartThrow.setCheckedOut(true);</b>
+<b class="nc">&nbsp;                break;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            dartThrow.setCheckedOut(false);</b>
+<b class="nc">&nbsp;            currentLeg.subtractPlayerScore(player, dart.getPoints());</b>
+<b class="nc">&nbsp;            message.printRemainingScore(currentLeg.getPlayerScore().get(player));</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return dartThrow;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public Object isMatchSetWon(Object something) {
+<b class="nc">&nbsp;        return null;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    //private double getPlayerAverage(Player player, Throw dartThrow, Leg currentLeg) {
+&nbsp;
+&nbsp;    //}
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-24 20:00</div>
+</div>
+</body>
+</html>

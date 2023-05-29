@@ -1,0 +1,201 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > SetupMatchQuestions</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">de.p3lina.adapters</a>
+</div>
+
+<h1>Coverage Summary for Class: SetupMatchQuestions (de.p3lina.adapters)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SetupMatchQuestions</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/46)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package de.p3lina.adapters;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;import de.p3lina.application.user.UserCommunicationService;
+&nbsp;import de.p3lina.adapters.i18n.I18n;
+&nbsp;import de.p3lina.domain.MatchBuilder;
+&nbsp;import de.p3lina.domain.Player;
+&nbsp;import de.p3lina.domain.i18n.Messages;
+&nbsp;
+&nbsp;import java.text.MessageFormat;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Locale;
+&nbsp;import java.util.ResourceBundle;
+&nbsp;import java.util.concurrent.TimeUnit;
+&nbsp;
+&nbsp;public class SetupMatchQuestions {
+&nbsp;
+&nbsp;    private String lastQuestion;
+&nbsp;    private UserCommunicationService userCommunicationService;
+&nbsp;
+<b class="nc">&nbsp;    public SetupMatchQuestions() {</b>
+<b class="nc">&nbsp;        this.userCommunicationService = new UserCommunicationService();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public MatchInfos getMatchInfos() {
+<b class="nc">&nbsp;        printMessageSlowlyToConsole(I18n.getMessage(Messages.WELCOME_MESSAGE));</b>
+<b class="nc">&nbsp;        printMessageSlowlyToConsole(I18n.getMessage(Messages.HOW_MANY_PLAYERS));</b>
+<b class="nc">&nbsp;        int playerCount = checkUserInput(userCommunicationService.getUserInput().toInt());</b>
+<b class="nc">&nbsp;        List&lt;Player&gt; players = getPlayersFromUserInput(playerCount);</b>
+<b class="nc">&nbsp;        printMessageSlowlyToConsole(I18n.getMessage(Messages.START_SCORE));</b>
+<b class="nc">&nbsp;        int gameMode = checkUserInput(userCommunicationService.getUserInput().toInt());</b>
+<b class="nc">&nbsp;        printMessageSlowlyToConsole(I18n.getMessage(Messages.HOW_MANY_SETS));</b>
+<b class="nc">&nbsp;        int setCount = getValidSetCountFromUser(playerCount);</b>
+<b class="nc">&nbsp;        printMessageSlowlyToConsole(I18n.getMessage(Messages.HOW_MANY_LEGS));</b>
+<b class="nc">&nbsp;        int legCount = getValidLegCountFromUser(playerCount);</b>
+<b class="nc">&nbsp;        return new MatchInfos(playerCount, players, gameMode, setCount, legCount);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    private int getValidSetCountFromUser(int playerCount) {
+<b class="nc">&nbsp;        int userInput = userCommunicationService.getUserInput().toInt();</b>
+<b class="nc">&nbsp;        if(userInput==1) {</b>
+<b class="nc">&nbsp;            return 1;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if(userInput%playerCount==0) {</b>
+<b class="nc">&nbsp;            printMessageSlowlyToConsole(I18n.getMessage(Messages.INVALID_SET_COUNT));</b>
+<b class="nc">&nbsp;            return getValidSetCountFromUser(playerCount);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return userInput;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private int getValidLegCountFromUser(int playerCount) {
+<b class="nc">&nbsp;        int userInput = userCommunicationService.getUserInput().toInt();</b>
+<b class="nc">&nbsp;        if(userInput==1) {</b>
+<b class="nc">&nbsp;            return 1;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if(userInput%playerCount==0) {</b>
+<b class="nc">&nbsp;            printMessageSlowlyToConsole(I18n.getMessage(Messages.INVALID_LEG_COUNT));</b>
+<b class="nc">&nbsp;            return getValidLegCountFromUser(playerCount);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return userInput;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private int checkUserInput(int input) {
+<b class="nc">&nbsp;        if(input==-1) {</b>
+<b class="nc">&nbsp;            printMessageSlowlyToConsole(lastQuestion);</b>
+<b class="nc">&nbsp;            return checkUserInput(userCommunicationService.getUserInput().toInt());</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return input;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void printMessageSlowlyToConsole(String message) {
+<b class="nc">&nbsp;        lastQuestion = message;</b>
+<b class="nc">&nbsp;        for(int indexInMessage = 0; indexInMessage&lt;message.length(); indexInMessage++) {</b>
+<b class="nc">&nbsp;            char charAtIndex = message.charAt(indexInMessage);</b>
+<b class="nc">&nbsp;            System.out.print(charAtIndex);</b>
+&nbsp;            try{
+<b class="nc">&nbsp;                TimeUnit.MILLISECONDS.sleep(1);</b>
+<b class="nc">&nbsp;            }catch(InterruptedException exc) {</b>
+&nbsp;
+<b class="nc">&nbsp;            }</b>
+&nbsp;        }
+<b class="nc">&nbsp;        System.out.print(&quot;\n&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private List&lt;Player&gt; getPlayersFromUserInput(int playerCount) {
+<b class="nc">&nbsp;        List&lt;Player&gt; players = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        while(players.size()&lt;playerCount) {</b>
+<b class="nc">&nbsp;            printMessageSlowlyToConsole(I18n.getMessage(Messages.ENTER_PLAYER_NAME));</b>
+<b class="nc">&nbsp;            Player player = new Player(userCommunicationService.getUserInput().toString());</b>
+<b class="nc">&nbsp;            players.add(player);</b>
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        return players;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-24 20:00</div>
+</div>
+</body>
+</html>

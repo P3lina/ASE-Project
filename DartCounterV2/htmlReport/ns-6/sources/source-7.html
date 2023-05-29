@@ -1,0 +1,213 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Leg</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">de.p3lina.domain</a>
+</div>
+
+<h1>Coverage Summary for Class: Leg (de.p3lina.domain)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Leg</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    55%
+  </span>
+  <span class="absValue">
+    (11/20)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    65,4%
+  </span>
+  <span class="absValue">
+    (17/26)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package de.p3lina.domain;
+&nbsp;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.HashMap;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Map;
+&nbsp;public class Leg {
+&nbsp;
+&nbsp;
+<b class="fc">&nbsp;    public Leg(int legNumber, List&lt;Player&gt; players) {</b>
+<b class="fc">&nbsp;        this.legNumber = legNumber;</b>
+<b class="fc">&nbsp;        this.playerScore = new HashMap&lt;&gt;();</b>
+<b class="fc">&nbsp;        this.rounds = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        this.playerAverages = new HashMap&lt;&gt;();</b>
+<b class="fc">&nbsp;        this.players = players;</b>
+<b class="fc">&nbsp;        this.playerScoreAtRoundBegin = new HashMap&lt;&gt;();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private List&lt;Player&gt; players;
+&nbsp;    private Statistics statistics;
+&nbsp;    private int startScore;
+&nbsp;    private Map&lt;Player, Map&lt;Integer, Integer&gt;&gt; playerScoreAtRoundBegin;
+&nbsp;    private int indexOfPlayerWhoseTurnItIs;
+&nbsp;    private Player winner;
+&nbsp;    private Player beginner;
+&nbsp;    //Score hier oder auf dem Player?
+&nbsp;    private Map&lt;Player, Integer&gt; playerScore;
+&nbsp;    private Map&lt;Player, List&lt;Throw&gt;&gt; playerThrows;
+&nbsp;    private Map&lt;Player, Double&gt; playerAverageThrow;
+&nbsp;    private Map&lt;Player, Integer&gt; playerThrowCount;
+&nbsp;    private int legNumber;
+&nbsp;    private List&lt;Round&gt; rounds;
+&nbsp;    private Map&lt;Player, Double&gt; playerAverages;
+&nbsp;
+&nbsp;    public List&lt;Round&gt; getRounds() {
+<b class="fc">&nbsp;        return rounds;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void addRound(Round round) {
+<b class="fc">&nbsp;        rounds.add(round);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    public void addPlayerWithScore(Player player, int score) {
+<b class="nc">&nbsp;        playerScore.put(player, score);</b>
+&nbsp;    }
+&nbsp;    public void subtractPlayerScore(Player player, int subtractValue) {
+<b class="nc">&nbsp;        this.playerScore.put(player, this.playerScore.get(player) - subtractValue);</b>
+&nbsp;    }
+&nbsp;    public void setPlayerScore(Player player, int score) {
+<b class="nc">&nbsp;        this.playerScore.put(player, score);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Player getWinner() {
+<b class="fc">&nbsp;        return winner;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Map&lt;Player, Integer&gt; getPlayerScore() {
+<b class="nc">&nbsp;        return playerScore;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public int getLegNumber() {
+<b class="fc">&nbsp;        return legNumber;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setWinner(Player winner) {
+<b class="fc">&nbsp;        this.winner = winner;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public List&lt;Player&gt; getPlayers() {
+<b class="fc">&nbsp;        return players;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setPlayers(List&lt;Player&gt; players) {
+<b class="nc">&nbsp;        this.players = players;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Map&lt;Player, Double&gt; getPlayerAverages() {
+<b class="nc">&nbsp;        return playerAverages;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setPlayerAverages(Map&lt;Player, Double&gt; playerAverages) {
+<b class="nc">&nbsp;        this.playerAverages = playerAverages;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Statistics getStatistics() {
+<b class="nc">&nbsp;        return statistics;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setStatistics(Statistics statistics) {
+<b class="nc">&nbsp;        this.statistics = statistics;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public int getStartScore() {
+<b class="fc">&nbsp;        return startScore;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setStartScore(int startScore) {
+<b class="fc">&nbsp;        this.startScore = startScore;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Map&lt;Player, Map&lt;Integer, Integer&gt;&gt; getPlayerScoreAtRoundBegin() {
+<b class="fc">&nbsp;        return playerScoreAtRoundBegin;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void putPlayerScoreAtRoundBegin(Player player, Map&lt;Integer, Integer&gt; scoreAtRoundBegin) {
+<b class="fc">&nbsp;        this.playerScoreAtRoundBegin.put(player, scoreAtRoundBegin);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-24 20:00</div>
+</div>
+</body>
+</html>

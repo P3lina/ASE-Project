@@ -1,0 +1,177 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > MatchMessages</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">de.p3lina.adapters</a>
+</div>
+
+<h1>Coverage Summary for Class: MatchMessages (de.p3lina.adapters)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MatchMessages</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/13)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/13)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package de.p3lina.adapters;
+&nbsp;
+&nbsp;import de.p3lina.adapters.i18n.I18n;
+&nbsp;import de.p3lina.domain.messages.MessagesDuringMatch;
+&nbsp;import de.p3lina.domain.i18n.Messages;
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;public class MatchMessages implements MessagesDuringMatch {</b>
+&nbsp;
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void printCurrentSetNumber(int setNumber) {
+<b class="nc">&nbsp;        System.out.println(I18n.getMessage(Messages.SET_NUMBER, setNumber));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void printCurrentLegNumber(int legNumber) {
+<b class="nc">&nbsp;        System.out.println(I18n.getMessage(Messages.LEG_NUMBER, legNumber));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void printRemainingScore(int remainingScore) {
+<b class="nc">&nbsp;        System.out.println(I18n.getMessage(Messages.REMAINING_SCORE, remainingScore));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void printPlayerInputDart(String playerName) {
+<b class="nc">&nbsp;        System.out.println(playerName + &quot; please input your dart&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void printPlayerBusted(String name, int resetPointsTo) {
+<b class="nc">&nbsp;        System.out.println(I18n.getMessage(Messages.PLAYER_BUSTED, name, resetPointsTo));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void printPlayerCheckedOut(String name) {
+<b class="nc">&nbsp;        System.out.println(I18n.getMessage(Messages.PLAYER_CHECKED_OUT, name));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void printPlayerWonSet(String name, int setNumber) {
+<b class="nc">&nbsp;        System.out.println(I18n.getMessage(Messages.PLAYER_WON_SET, name, setNumber));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void printPlayerWonMatch(String name) {
+<b class="nc">&nbsp;        System.out.println(I18n.getMessage(Messages.PLAYER_WON_MATCH, name));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void printPlayerWonLeg(String name, int legNumber) {
+<b class="nc">&nbsp;        System.out.println(I18n.getMessage(Messages.PLAYER_WON_LEG, name, legNumber));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void printPlayerAverages(String name, Double average) {
+<b class="nc">&nbsp;        System.out.println(I18n.getMessage(Messages.PLAYER_AVERAGES, name, average));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void printPlayerRoundAverage(String name, Double average, Double playerLegAverage) {
+<b class="nc">&nbsp;        System.out.println(I18n.getMessage(Messages.PLAYER_ROUND_AVERAGE, name, average, playerLegAverage));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void printPlayerCheckoutQuote(String name, int legNumber, Double playerCheckoutQuote) {
+<b class="nc">&nbsp;        System.out.println(I18n.getMessage(Messages.PLAYER_CHECKOUT_QUOTE, name, legNumber, playerCheckoutQuote));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-24 20:00</div>
+</div>
+</body>
+</html>

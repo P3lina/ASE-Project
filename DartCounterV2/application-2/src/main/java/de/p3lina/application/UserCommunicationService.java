@@ -1,5 +1,7 @@
 package de.p3lina.application;
 
+import de.p3lina.application.user.UserInput;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

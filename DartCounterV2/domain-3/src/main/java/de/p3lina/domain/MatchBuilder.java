@@ -3,9 +3,9 @@ package de.p3lina.domain;
 
 import java.util.List;
 
-public class MatchInfos {
+public class MatchBuilder {
 
-    public MatchInfos(int playerCount, List<Player> players, int startScore, int setCount, int legCount) {
+    public MatchBuilder(int playerCount, List<Player> players, int startScore, int setCount, int legCount) {
         this.playerCount = playerCount;
         this.players = players;
         this.startScore = startScore;

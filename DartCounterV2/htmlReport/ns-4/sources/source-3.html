@@ -1,0 +1,221 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > PlayerCheckoutQuoteCalculator</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">de.p3lina.application</a>
+</div>
+
+<h1>Coverage Summary for Class: PlayerCheckoutQuoteCalculator (de.p3lina.application)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PlayerCheckoutQuoteCalculator</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    97,7%
+  </span>
+  <span class="absValue">
+    (43/44)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">PlayerCheckoutQuoteCalculator$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">PlayerCheckoutQuoteCalculator$2</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    97,8%
+  </span>
+  <span class="absValue">
+    (45/46)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package de.p3lina.application;
+&nbsp;
+&nbsp;import de.p3lina.domain.*;
+&nbsp;
+&nbsp;import java.util.HashMap;
+&nbsp;import java.util.Map;
+&nbsp;
+&nbsp;public class PlayerCheckoutQuoteCalculator {
+&nbsp;
+&nbsp;    private Leg leg;
+<b class="fc">&nbsp;    public PlayerCheckoutQuoteCalculator(Leg leg) {</b>
+<b class="fc">&nbsp;        this.leg = leg;</b>
+<b class="fc">&nbsp;        fillPlayerScoreAtRoundBeginMap();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    public Map&lt;Player, Map&lt;Integer, Double&gt;&gt; getPlayersCheckoutQuoteOfLeg() {
+<b class="fc">&nbsp;        Map&lt;Player, Map&lt;Integer, Double&gt;&gt; playersCheckoutQuotePL = new HashMap&lt;&gt;();</b>
+<b class="fc">&nbsp;        for(Player player : leg.getPlayers()) {</b>
+<b class="fc">&nbsp;            playersCheckoutQuotePL.put(player, getPlayerCheckoutQuoteOfLeg(player));</b>
+<b class="fc">&nbsp;        }</b>
+<b class="fc">&nbsp;        return playersCheckoutQuotePL;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Map&lt;Integer, Double&gt; getPlayerCheckoutQuoteOfLeg(Player player) {
+<b class="fc">&nbsp;        if(!leg.getWinner().getName().equals(player.getName())) {</b>
+<b class="fc">&nbsp;            return new HashMap&lt;Integer, Double&gt;() {{put(leg.getLegNumber(), 0.0);}};</b>
+&nbsp;        }
+<b class="fc">&nbsp;        System.out.println(player.getName());</b>
+<b class="fc">&nbsp;        int chancesToDoubleOut = 0;</b>
+<b class="fc">&nbsp;        for(Round round : leg.getRounds()) {</b>
+<b class="fc">&nbsp;            Throw dartThrow = round.getPlayerThrows().get(player);</b>
+<b class="fc">&nbsp;            int currentScore = getPlayerPointsAtRoundBegin(player, round.getRoundNumber());</b>
+<b class="fc">&nbsp;            for(Dart dart : dartThrow.getDarts()) {</b>
+<b class="fc">&nbsp;                if(currentScore&lt;=40&amp;&amp;currentScore%2==0||currentScore==50) {</b>
+<b class="fc">&nbsp;                    chancesToDoubleOut++;</b>
+&nbsp;                }
+<b class="fc">&nbsp;                currentScore-=dart.getPoints();</b>
+<b class="fc">&nbsp;            }</b>
+<b class="fc">&nbsp;        }</b>
+<b class="fc">&nbsp;        Double checkoutQuote = 1.0 / chancesToDoubleOut;</b>
+<b class="fc">&nbsp;        return new HashMap&lt;&gt;(){{put(leg.getLegNumber(), checkoutQuote);}};</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private Integer getPlayerPointsAtRoundBegin(Player player, int roundNumber) {
+<b class="fc">&nbsp;        return leg.getPlayerScoreAtRoundBegin().get(player).get(roundNumber);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void fillPlayerScoreAtRoundBeginMap() {
+<b class="fc">&nbsp;        int startScore = leg.getStartScore();</b>
+<b class="fc">&nbsp;        for(Player player : leg.getPlayers()) {</b>
+<b class="fc">&nbsp;            int scoreAtBeginOfRound = startScore;</b>
+<b class="fc">&nbsp;            Map&lt;Integer, Integer&gt; roundScore = leg.getPlayerScoreAtRoundBegin().get(player);</b>
+<b class="fc">&nbsp;            if(roundScore == null) {</b>
+<b class="fc">&nbsp;                roundScore = new HashMap&lt;&gt;();</b>
+<b class="fc">&nbsp;                leg.putPlayerScoreAtRoundBegin(player, roundScore);</b>
+&nbsp;            }
+<b class="fc">&nbsp;            for(Round round : leg.getRounds()) {</b>
+<b class="fc">&nbsp;                Throw dartThrow = round.getPlayerThrows().get(player);</b>
+<b class="fc">&nbsp;                int scoreToSubtract = 0;</b>
+<b class="fc">&nbsp;                for(Dart dart : dartThrow.getDarts()) {</b>
+<b class="fc">&nbsp;                    scoreToSubtract += dart.getPoints();</b>
+<b class="fc">&nbsp;                }</b>
+<b class="fc">&nbsp;                if(scoreToSubtract&gt;scoreAtBeginOfRound) {</b>
+<b class="nc">&nbsp;                    scoreToSubtract = 0;</b>
+&nbsp;                }
+<b class="fc">&nbsp;                roundScore.put(round.getRoundNumber(), scoreAtBeginOfRound);</b>
+<b class="fc">&nbsp;                scoreAtBeginOfRound -=scoreToSubtract;</b>
+<b class="fc">&nbsp;            }</b>
+<b class="fc">&nbsp;            leg.putPlayerScoreAtRoundBegin(player,roundScore);</b>
+<b class="fc">&nbsp;        }</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-24 20:00</div>
+</div>
+</body>
+</html>

@@ -3,11 +3,9 @@ package de.p3lina.application.handle;
 import de.p3lina.domain.*;
 import de.p3lina.domain.messages.MessagesDuringMatch;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class HandleMatch extends HandleGame<Set> implements Handle<Match, MatchInfos, IsWon, Match>{
+public class HandleMatch extends HandleGame<Set> implements Handle<Match, MatchBuilder, IsWon, Match>{
 
 
     MessagesDuringMatch message;
@@ -15,13 +13,13 @@ public class HandleMatch extends HandleGame<Set> implements Handle<Match, MatchI
         this.message = message;
     }
 
-    public Match process(MatchInfos matchInfos) {
-        Match match = new Match(matchInfos);
+    public Match process(MatchBuilder matchBuilder) {
+        Match match = new Match.MatchBuilder(matchBuilder.getLegCount(), matchBuilder.getSetCount(),matchBuilder.getPlayers(),matchBuilder.getStartScore()).build();
         List<Player> players = match.getPlayers();
         int setNumber = 1;
         while(match.getWinner() == null) {
             HandleSet setHandle = new HandleSet(message);
-            Set set = setHandle.process(new HandleSetProcessParams(players, matchInfos.getStartScore(), setNumber, match.getLegCount()));
+            Set set = setHandle.process(new HandleSetProcessParams(players, matchBuilder.getStartScore(), setNumber, match.getLegCount()));
             //update player order
             players = set.getLegs().get(set.getLegs().size()-1).getPlayers();
             setNumber++;

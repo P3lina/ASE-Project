@@ -1,0 +1,1 @@
+players = Arrays.asList(new Player("Player1"), new Player("Player2"));

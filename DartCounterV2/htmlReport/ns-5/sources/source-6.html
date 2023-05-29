@@ -1,0 +1,155 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > HandleSet</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">de.p3lina.application.handle</a>
+</div>
+
+<h1>Coverage Summary for Class: HandleSet (de.p3lina.application.handle)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">HandleSet</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/25)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package de.p3lina.application.handle;
+&nbsp;
+&nbsp;import de.p3lina.domain.*;
+&nbsp;import de.p3lina.domain.messages.MessagesDuringMatch;
+&nbsp;
+&nbsp;import java.util.HashMap;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Map;
+&nbsp;
+&nbsp;public class HandleSet extends HandleGame&lt;Leg&gt; implements Handle&lt;Set, HandleSetProcessParams, IsWon, IsSetWonParameter&gt;  {
+&nbsp;
+&nbsp;
+&nbsp;    private MessagesDuringMatch message;
+&nbsp;
+<b class="nc">&nbsp;    public HandleSet(MessagesDuringMatch message) {</b>
+<b class="nc">&nbsp;        this.message = message;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Set process(HandleSetProcessParams params) {
+<b class="nc">&nbsp;        List&lt;Player&gt; players = params.getPlayers();</b>
+<b class="nc">&nbsp;        int startScore = params.getStartScore();</b>
+<b class="nc">&nbsp;        int setNumber = params.getSetNumber();</b>
+<b class="nc">&nbsp;        int legCount = params.getLegCount();</b>
+<b class="nc">&nbsp;        message.printCurrentSetNumber(setNumber);</b>
+<b class="nc">&nbsp;        Set set = new Set(setNumber);</b>
+<b class="nc">&nbsp;        int legNumber = 1;</b>
+<b class="nc">&nbsp;        while (set.getWinner() == null) {</b>
+<b class="nc">&nbsp;            HandleLeg legHandle = new HandleLeg(message);</b>
+<b class="nc">&nbsp;            Leg leg = legHandle.process(new HandleLegProcessParams(players, legNumber, startScore));</b>
+<b class="nc">&nbsp;            set.addLeg(leg);</b>
+&nbsp;            //updated player order
+<b class="nc">&nbsp;            players = leg.getPlayers();</b>
+<b class="nc">&nbsp;            if(isMatchSetWon(new IsSetWonParameter(set, players.size(), legCount)).isWon()) {</b>
+<b class="nc">&nbsp;                set.setWinner(isMatchSetWon(new IsSetWonParameter(set, players.size(), legCount)).getPlayer());</b>
+<b class="nc">&nbsp;                break;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            legNumber++;</b>
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        message.printPlayerWonSet(set.getWinner().getName(), set.getSetNumber());</b>
+<b class="nc">&nbsp;        return set;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    public IsWon isMatchSetWon(IsSetWonParameter isSetWonParameter) {
+<b class="nc">&nbsp;        Set set = isSetWonParameter.getSet();</b>
+<b class="nc">&nbsp;        int legCount = isSetWonParameter.getLegCount();</b>
+<b class="nc">&nbsp;        int playerCount = isSetWonParameter.getPlayerCount();</b>
+<b class="nc">&nbsp;        return super.isMatchSetWon(set.getLegs(), Leg::getWinner, legCount, playerCount);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-24 20:00</div>
+</div>
+</body>
+</html>

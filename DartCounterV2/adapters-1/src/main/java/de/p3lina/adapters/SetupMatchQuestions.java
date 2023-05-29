@@ -4,15 +4,12 @@ package de.p3lina.adapters;
 
 import de.p3lina.application.UserCommunicationService;
 import de.p3lina.adapters.i18n.I18n;
-import de.p3lina.domain.MatchInfos;
+import de.p3lina.domain.MatchBuilder;
 import de.p3lina.domain.Player;
 import de.p3lina.domain.i18n.Messages;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
 
 public class SetupMatchQuestions {
@@ -24,7 +21,7 @@ public class SetupMatchQuestions {
         this.userCommunicationService = new UserCommunicationService();
     }
 
-    public MatchInfos getMatchInfos() {
+    public MatchBuilder getMatchInfos() {
         printMessageSlowlyToConsole(I18n.getMessage(Messages.WELCOME_MESSAGE));
         printMessageSlowlyToConsole(I18n.getMessage(Messages.HOW_MANY_PLAYERS));
         int playerCount = checkUserInput(userCommunicationService.getUserInput().toInt());
@@ -35,7 +32,7 @@ public class SetupMatchQuestions {
         int setCount = getValidSetCountFromUser(playerCount);
         printMessageSlowlyToConsole(I18n.getMessage(Messages.HOW_MANY_LEGS));
         int legCount = getValidLegCountFromUser(playerCount);
-        return new MatchInfos(playerCount, players, gameMode, setCount, legCount);
+        return new MatchBuilder(playerCount, players, gameMode, setCount, legCount);
     }
 
 

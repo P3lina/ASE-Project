@@ -4,6 +4,7 @@ import de.p3lina.domain.*;
 
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -18,23 +19,30 @@ public class PlayerAverageCalculator {
     }
 
     public Double getPlayerAverageOfLeg(Player player, Leg leg) {
-        double playerAveragePL;
-        double sumPlayerAveragesPerRound = 0.0;
-        int totalRoundCount = (leg.getRounds().get(leg.getRounds().size()-1).getRoundNumber());
-        for(Round round : leg.getRounds()) {
-            Double playerAverageOfRound = getPlayerAverageOfRound(round, player);
-            if(playerAverageOfRound==-1.0) {
-                totalRoundCount--;
-                continue;
-            }
-            sumPlayerAveragesPerRound += playerAverageOfRound;
-        }
+        int totalRoundCount = getRoundNumberOfLastRound(leg);
         if(totalRoundCount==0) {
             return 0.0;
         }
-        System.out.println(totalRoundCount);
-        playerAveragePL = sumPlayerAveragesPerRound / totalRoundCount;
-        return playerAveragePL;
+        double sumPlayerAveragesPerRound = getSumOfPlayerAveragesOfRounds(leg.getRounds(), player);
+        return sumPlayerAveragesPerRound / totalRoundCount;
+    }
+
+    private int getRoundNumberOfLastRound(Leg leg) {
+        return leg.getRounds().get(
+                        leg.getRounds().size()-1)
+                .getRoundNumber();
+    }
+
+    private Double getSumOfPlayerAveragesOfRounds(List<Round> rounds, Player player) {
+        double sumPlayerAveragesPerRound = 0.0;
+        for(Round round : rounds) {
+            Double playerAverageOfRound = getPlayerAverageOfRound(round, player);
+            if(playerAverageOfRound==-1.0) {
+                break;
+            }
+            sumPlayerAveragesPerRound += playerAverageOfRound;
+        }
+        return sumPlayerAveragesPerRound;
     }
 
     public Double getPlayerAverageOfRound(Round round, Player player) {

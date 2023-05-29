@@ -1,13 +1,12 @@
 package de.p3lina.application.handle;
 
 import de.p3lina.application.UserCommunicationService;
-import de.p3lina.application.UserInput;
+import de.p3lina.application.user.UserInput;
 import de.p3lina.domain.*;
 import de.p3lina.domain.messages.MessagesDuringMatch;
 
 public class HandleDart implements Handle<Dart, Player, Object, Object>{
 
-    private Player player;
     private MessagesDuringMatch message;
 
     public HandleDart(MessagesDuringMatch message) {
@@ -24,8 +23,7 @@ public class HandleDart implements Handle<Dart, Player, Object, Object>{
             return this.process(player);
         }
         PossibleDarts parsedInput = PossibleDarts.valueOf(userInput.toString());
-        Dart dart = new Dart(parsedInput);
-        return dart;
+        return new Dart(parsedInput);
     }
 
     @Override
@@ -50,17 +48,11 @@ public class HandleDart implements Handle<Dart, Player, Object, Object>{
         if(currentPlayerScore - dart.getPoints() == 1) {
             return true;
         }
-        if(currentPlayerScore - dart.getPoints() == 0 && !dart.isDoubleNumber()) {
-            return true;
-        }
-        return false;
+        return currentPlayerScore - dart.getPoints() == 0 && !dart.isDoubleNumber();
     }
 
     private boolean playerCheckedOut(Dart dart, int currentPlayerScore) {
-        if(dart.getPoints()==currentPlayerScore && dart.isDoubleNumber()) {
-            return true;
-        }
-        return false;
+        return dart.getPoints() == currentPlayerScore && dart.isDoubleNumber();
     }
 
 }

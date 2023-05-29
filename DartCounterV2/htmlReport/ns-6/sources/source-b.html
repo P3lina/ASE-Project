@@ -1,0 +1,194 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > PossibleDarts</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">de.p3lina.domain</a>
+</div>
+
+<h1>Coverage Summary for Class: PossibleDarts (de.p3lina.domain)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PossibleDarts</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    75%
+  </span>
+  <span class="absValue">
+    (3/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    97,1%
+  </span>
+  <span class="absValue">
+    (67/69)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package de.p3lina.domain;
+&nbsp;
+&nbsp;
+&nbsp;/** Ensures that no other darts than those described here can be thrown
+&nbsp; * @author P3lina
+&nbsp; * @version 1.0.0-SNAPSHOT
+&nbsp; * @since 1.0.0-SNAPSHOT
+&nbsp; */
+<b class="fc">&nbsp;public enum PossibleDarts {</b>
+&nbsp;
+&nbsp;
+&nbsp;
+<b class="fc">&nbsp;    Zero(0, false),</b>
+<b class="fc">&nbsp;    S1(1, false),</b>
+<b class="fc">&nbsp;    S2(2, false),</b>
+<b class="fc">&nbsp;    S3(3, false),</b>
+<b class="fc">&nbsp;    S4(4, false),</b>
+<b class="fc">&nbsp;    S5(5, false),</b>
+<b class="fc">&nbsp;    S6(6, false),</b>
+<b class="fc">&nbsp;    S7(7, false),</b>
+<b class="fc">&nbsp;    S8(8, false),</b>
+<b class="fc">&nbsp;    S9(9, false),</b>
+<b class="fc">&nbsp;    S10(10, false),</b>
+<b class="fc">&nbsp;    S11(11, false),</b>
+<b class="fc">&nbsp;    S12(12, false),</b>
+<b class="fc">&nbsp;    S13(13, false),</b>
+<b class="fc">&nbsp;    S14(14, false),</b>
+<b class="fc">&nbsp;    S15(15, false),</b>
+<b class="fc">&nbsp;    S16(16, false),</b>
+<b class="fc">&nbsp;    S17(17, false),</b>
+<b class="fc">&nbsp;    S18(18, false),</b>
+<b class="fc">&nbsp;    S19(19, false),</b>
+<b class="fc">&nbsp;    S20(20, false),</b>
+<b class="fc">&nbsp;    D1(2, true),</b>
+<b class="fc">&nbsp;    D2(4, true),</b>
+<b class="fc">&nbsp;    D3(6, true),</b>
+<b class="fc">&nbsp;    D4(8, true),</b>
+<b class="fc">&nbsp;    D5(10, true),</b>
+<b class="fc">&nbsp;    D6(12, true),</b>
+<b class="fc">&nbsp;    D7(14, true),</b>
+<b class="fc">&nbsp;    D8(16, true),</b>
+<b class="fc">&nbsp;    D9(18, true),</b>
+<b class="fc">&nbsp;    D10(20, true),</b>
+<b class="fc">&nbsp;    D11(22, true),</b>
+<b class="fc">&nbsp;    D12(24, true),</b>
+<b class="fc">&nbsp;    D13(26, true),</b>
+<b class="fc">&nbsp;    D14(28, true),</b>
+<b class="fc">&nbsp;    D15(30, true),</b>
+<b class="fc">&nbsp;    D16(32, true),</b>
+<b class="fc">&nbsp;    D17(34, true),</b>
+<b class="fc">&nbsp;    D18(36, true),</b>
+<b class="fc">&nbsp;    D19(38, true),</b>
+<b class="fc">&nbsp;    D20(40, true),</b>
+<b class="fc">&nbsp;    T1(3, false),</b>
+<b class="fc">&nbsp;    T2(6, false),</b>
+<b class="fc">&nbsp;    T3(9, false),</b>
+<b class="fc">&nbsp;    T4(12, false),</b>
+<b class="fc">&nbsp;    T5(15, false),</b>
+<b class="fc">&nbsp;    T6(18, false),</b>
+<b class="fc">&nbsp;    T7(21, false),</b>
+<b class="fc">&nbsp;    T8(24, false),</b>
+<b class="fc">&nbsp;    T9(27, false),</b>
+<b class="fc">&nbsp;    T10(30, false),</b>
+<b class="fc">&nbsp;    T11(33, false),</b>
+<b class="fc">&nbsp;    T12(36, false),</b>
+<b class="fc">&nbsp;    T13(39, false),</b>
+<b class="fc">&nbsp;    T14(42, false),</b>
+<b class="fc">&nbsp;    T15(45, false),</b>
+<b class="fc">&nbsp;    T16(48, false),</b>
+<b class="fc">&nbsp;    T17(51, false),</b>
+<b class="fc">&nbsp;    T18(54, false),</b>
+<b class="fc">&nbsp;    T19(57, false),</b>
+<b class="fc">&nbsp;    T20(60, false),</b>
+<b class="fc">&nbsp;    SBull(25, false),</b>
+<b class="fc">&nbsp;    DBull(50, true);</b>
+&nbsp;
+&nbsp;
+&nbsp;    public int points;
+&nbsp;    public boolean isDouble;
+&nbsp;
+<b class="fc">&nbsp;    PossibleDarts(int points, boolean isDouble) {</b>
+<b class="fc">&nbsp;        this.points = points;</b>
+<b class="fc">&nbsp;        this.isDouble = isDouble;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static PossibleDarts getPossibleDartsByName(String name) {
+<b class="nc">&nbsp;        PossibleDarts possibleDarts = valueOf(name);</b>
+<b class="nc">&nbsp;        return valueOf(name);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-24 20:00</div>
+</div>
+</body>
+</html>
